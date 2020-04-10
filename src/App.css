@@ -1,0 +1,56 @@
+body {
+  margin: 0;
+  border: solid salmon .5em;
+  font-family: 'Baloo Tammudu 2';
+}
+
+h1, h2 {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  margin-top:0;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+#main-container {
+  border: solid purple 3px;
+  height: 100vh;
+  padding: 1em;
+}
+
+#notebook, #playground {
+  margin: 1em;
+  padding-left: 1em;
+  border: solid olivedrab 3px;
+  flex: 1;
+}
+
+#menu {
+  display: flex;
+  border: solid turquoise 3px;
+  height: 5%;
+  margin-top: 1em;
+}
+
+#add-tab-button {
+  min-width: 3em;
+  height: 100%;
+}
+
+.selected {
+  background-color: bisque;
+}
+
+/* scroll menu disappears when browser height gets smaller than 450px */
+@media (max-height: 450px) {
+  #notebook {
+    height: 90vh;
+  }
+
+  #scrollmenu {
+    visibility: hidden;
+  }
+}
