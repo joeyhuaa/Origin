@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Tab from '../Tab'
+import Tab from './Tab'
 
 /* costco media query */
 // implement side scrolling???

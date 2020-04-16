@@ -2,33 +2,37 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 // components
-import Brain from './Brain'
-import BrainInventory from './BrainInventory'
-import Menu from './Menu'
+import Brain from './components/Brain'
+import Menu from './components/Menu'
 
 export default function App() {
-  let [brainCount, setBrainCount] = useState(1)
+  // initialize allBrainData as an empty array
+  // this will hold data for ALL brains
+  let [data, setData] = useState([])
+
+  // this is the data for the current Brain, is passed as prop to <Brain /> to be rendered
+  let [currBrainData, setCurrBrainData] = useState()
 
   useEffect(() => {
-    console.log('there are', brainCount, 'brains total')
   })
 
-  function buttonPressed() {
-    setBrainCount(brainCount + 1)
-    
-    // tests
+  function buttonPressed(tabNumber) {
+    console.log('The newest Tab is', tabNumber)
+    console.log('data =', data)
+
+    let newData = data; newData[tabNumber] = `${tabNumber}`
+    setData(newData) // create new array for new Tab 
   }
 
-  function getBrainKeys(numOfBrains) {
-    let keys = []
-    for (let i = 1; i < numOfBrains + 1; i++ ) {keys[i] = i }
-    return keys
+  function tabPressed(tabNumber) {
+    console.log(tabNumber)
+    setCurrBrainData(data[tabNumber]) 
   }
 
   return (
     <div id='main-container'>
-      <BrainInventory numOfBrains={getBrainKeys(brainCount)} />
-      <Menu onButtonPress={buttonPressed} />
+      <Brain data={currBrainData} />
+      <Menu onButtonPress={buttonPressed} onTabSelect={tabPressed} />
     </div>
   );
 }

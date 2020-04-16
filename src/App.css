@@ -2,6 +2,7 @@ body {
   margin: 0;
   border: solid salmon .5em;
   font-family: 'Baloo Tammudu 2';
+  line-height: 1.5em;
 }
 
 h1, h2 {
@@ -42,6 +43,14 @@ ul {
 
 .selected {
   background-color: bisque;
+}
+
+.max-lines {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* display: -webkit-box; */
+  -webkit-line-clamp: 10; /* number of lines to show */
+  -webkit-box-orient: vertical;
 }
 
 /* scroll menu disappears when browser height gets smaller than 450px */
