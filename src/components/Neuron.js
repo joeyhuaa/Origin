@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react'
+import NeuronChooser from './NeuronChooser'
 
 export default function Neuron(props) {
+
+  /* STYLES */
+
+  let containerStyles = {
+    'display':'block',
+  }
 
   let circleStyles = {
     'position':'absolute',
@@ -21,7 +28,7 @@ export default function Neuron(props) {
     'cursor':'pointer',
   }
 
-  let circleSelectedStyles = {...circleStyles, 'border':'solid pink 6px'}
+  let circleHoverStyles = {...circleStyles, 'border':'solid pink 6px'}
 
   /* HOOKS */
   let [hovering, setHovering] = useState(false)
@@ -30,26 +37,20 @@ export default function Neuron(props) {
     console.log(hovering)
   })
 
-  let handleHover = () => {
-    setHovering(!hovering)
-  }
+  /* FUNCTIONS */
 
-  /* TEST */
-  let testStyles = {
-    'position':'absolute', 'left':props.pos.x, 'top':props.pos.y, 'border':'solid green 3px'
-  }
-
-  let testHoverStyles = {...testStyles, 'border':'solid blue 3px'}
-
-  // this circle will be rendered whenever a mouse click event occurs in Brain
-  return (
-    // <div style={hovering ? circleSelectedStyles : circleStyles} onMouseEnter={handleHover} onMouseOut={handleHover}>
-    //   <div className='max-lines' contentEditable='true' style={textAreaStyles}></div>
-    // </div>
-    <div contentEditable>
-      {/* <svg height='150' width='150' style={hovering ? circleSelectedStyles : circleStyles}>
-      </svg> */}
-      <textarea style={hovering ? circleSelectedStyles : circleStyles} onMouseEnter={handleHover} onMouseOut={handleHover}></textarea>
-    </div>
-  )
+  /* RENDER */
+  if (hovering)
+    return (
+      <div style={containerStyles}>
+        <textarea style={circleHoverStyles} onMouseEnter={() => setHovering(true)} onMouseOut={() => setHovering(false)}></textarea>
+        <NeuronChooser pos={props.pos}/>
+      </div>
+    )
+  else
+    return (
+      <div style={containerStyles}>
+        <textarea style={circleStyles} onMouseEnter={() => setHovering(true)} onMouseOut={() => setHovering(false)}></textarea>
+      </div>
+    )
 }
