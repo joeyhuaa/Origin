@@ -16,6 +16,10 @@ ul {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
+#test {
+  width: 100px; height: 100px; background-color: tomato;
+}
+
 #main-container {
   border: solid purple 3px;
   height: 100vh;
@@ -45,13 +49,13 @@ ul {
   background-color: bisque;
 }
 
-.max-lines {
+/* .max-lines {
   overflow: hidden;
   text-overflow: ellipsis;
-  /* display: -webkit-box; */
-  -webkit-line-clamp: 10; /* number of lines to show */
+  /* display: -webkit-box;
+  -webkit-line-clamp: 10; 
   -webkit-box-orient: vertical;
-}
+} */
 
 /* scroll menu disappears when browser height gets smaller than 450px */
 @media (max-height: 450px) {
