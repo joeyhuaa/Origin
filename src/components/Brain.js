@@ -34,23 +34,21 @@ export default function Brain(props) {
 
   useEffect(() => {
     // console.log(neuronPositions)
-    console.log(connecting)
+    console.log(linePositions)
 
     // reset connecting
     if (connecting.length === 2) setConnecting([])
   })
 
+  /* FUNCTIONS */
   function between(num, min, max) {
     return (num >= min && num <= max)
   }
 
-  /* FUNCTIONS */
   function handleClick() {
     let shouldAddNeuron = true
     for (let p of neuronPositions) {
       if ( between(mousePos.x, p.x-120, p.x+120) && between(mousePos.y, p.y-120, p.y+120) ) {
-        // console.log(mousePos.x, p.x)
-        // console.log(mousePos.y, p.y)
         shouldAddNeuron = false
       }
     }
@@ -76,8 +74,7 @@ export default function Brain(props) {
       // update connecting state
       let newConnecting = connecting; newConnecting.push(startPoint)
       setConnecting(newConnecting)
-    }
-    else if (connecting.length === 1) {
+    } else if (connecting.length === 1) {
       alert('connecting second Neuron')
 
       // add 2nd Neuron to connecting, get endPoint for line
@@ -98,12 +95,6 @@ export default function Brain(props) {
       setLinePositions(newLinePositions)
       setLineCount(lineCount + 1)
     }
-
-  }
-
-  function getLineVertex() {
-    if (neuronPositions.length !== 0) 
-      return {x: neuronPositions[neuronCount].x, y: neuronPositions[neuronCount].y}
   }
 
   let neurons = <div>{neuronPositions.map(
@@ -112,7 +103,13 @@ export default function Brain(props) {
 
   let lines = <div>{linePositions.map(
     (point, i) => <svg width='5000' height='5000'>
-                    <line x1={point.x1} y1={point.y1} x2={point.x2} y2={point.y2} key={i} style={lineStyles} />
+                    <line 
+                      key={i}
+                      x1={point.x1-50} 
+                      y1={point.y1+50} 
+                      x2={point.x2-50}
+                      y2={point.y2+50} 
+                      style={lineStyles} />
                   </svg>
   )}</div>
 
@@ -120,9 +117,17 @@ export default function Brain(props) {
   return (
     <div style={containerStyles} onClick={handleClick} onMouseMove={handleMouseMove}>
       <div id='playground' style={brainStyles}>
-        <h3 style={{'margin':'5px'}}>{mousePos.x}, {mousePos.y}</h3>
-        {neurons}
+        {/* <h3 style={{'margin':'5px'}}>{mousePos.x}, {mousePos.y}</h3> */}
+        {neurons} 
         {lines}
+        {/* <svg width='5000' height='5000' border='solid black 2px'>
+          <line 
+            x1={50} 
+            y1={50} 
+            x2={500}
+            y2={500} 
+            style={{'stroke':'rgb(255,0,0)', 'strokeWidth':'2'}} />
+        </svg> */}
       </div>
     </div>
   )
