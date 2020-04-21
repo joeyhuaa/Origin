@@ -30,27 +30,56 @@ export default function Neuron(props) {
 
   let circleHoverStyles = {...circleStyles, 'border':'solid pink 6px'}
 
-  /* HOOKS */
-  let [hovering, setHovering] = useState(false)
+  let chooserStyles = {
+    'position':'absolute',
+    'left':props.pos.x + 75,
+    'top':props.pos.y,
+    'width':'5%',
+    'height':'5%',
+    'backgroundColor':'whitesmoke',
+    'borderRadius':'5%',
+  }
 
-  useEffect(() => {
-    console.log(hovering)
-  })
+  let chooserHoverStyles = {...chooserStyles, 'border':'solid black 2px'}
+
+  /* HOOKS */
+  let [neuronHovering, setNeuronHovering] = useState(true)
+  let [chooserHovering, setChooserHovering] = useState(false)
+
+  useEffect(() => {})
 
   /* FUNCTIONS */
 
+  function handleNeuronHover(isHovering) {
+    setNeuronHovering(isHovering)
+  }
+
+  function handleChooserHover(isHovering) {
+    setChooserHovering(isHovering)
+  }
+
+  function getChooserStyles() {
+    if (neuronHovering && !chooserHovering)
+      return chooserStyles
+    else if (!neuronHovering && chooserHovering)
+      return chooserHoverStyles
+    else if (!neuronHovering && !chooserHovering)
+      return {'visibility':'hidden'}
+  }
+
   /* RENDER */
-  if (hovering)
-    return (
-      <div style={containerStyles}>
-        <textarea style={circleHoverStyles} onMouseEnter={() => setHovering(true)} onMouseOut={() => setHovering(false)}></textarea>
-        <NeuronChooser pos={props.pos}/>
+  return (
+    <div style={containerStyles}>
+      <textarea 
+        style={neuronHovering || chooserHovering ? circleHoverStyles : circleStyles} 
+        onMouseEnter={() => handleNeuronHover(true)} 
+        onMouseOut={() => handleNeuronHover(false)}>
+      </textarea>
+      <div 
+        style={getChooserStyles()} 
+        onMouseEnter={() => handleChooserHover(true)} 
+        onMouseOut={() => handleChooserHover(false)}>
       </div>
-    )
-  else
-    return (
-      <div style={containerStyles}>
-        <textarea style={circleStyles} onMouseEnter={() => setHovering(true)} onMouseOut={() => setHovering(false)}></textarea>
-      </div>
-    )
+    </div>
+  )
 }
