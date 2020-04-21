@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 export default function Neuron(props) {
 
   /* STYLES */
-
   let containerStyles = {
     'display':'block',
   }
@@ -29,7 +28,7 @@ export default function Neuron(props) {
 
   let circleHoverStyles = {...circleStyles, 'border':'solid pink 6px'}
 
-  let chooserStyles = {
+  let buttonStyles = {
     'position':'absolute',
     'left':props.pos.x + 75,
     'top':props.pos.y,
@@ -39,46 +38,53 @@ export default function Neuron(props) {
     'borderRadius':'5%',
   }
 
-  let chooserHoverStyles = {...chooserStyles, 'border':'solid black 2px'}
+  let buttonHoverStyles = {...buttonStyles, 'border':'solid black 2px'}
 
   /* HOOKS */
   let [neuronHovering, setNeuronHovering] = useState(true)
-  let [chooserHovering, setChooserHovering] = useState(false)
+  let [buttonHovering, setButtonHovering] = useState(false)
 
-  useEffect(() => {})
+  useEffect(() => {
+
+  })
 
   /* FUNCTIONS */
-
   function handleNeuronHover(isHovering) {
     setNeuronHovering(isHovering)
   }
 
-  function handleChooserHover(isHovering) {
-    setChooserHovering(isHovering)
+  function handleButtonHover(isHovering) {
+    setButtonHovering(isHovering)
   }
 
-  function getChooserStyles() {
-    if (neuronHovering && !chooserHovering)
-      return chooserStyles
-    else if (!neuronHovering && chooserHovering)
-      return chooserHoverStyles
-    else if (!neuronHovering && !chooserHovering)
+  function getButtonStyles() {
+    if (neuronHovering && !buttonHovering)
+      return buttonStyles
+    else if (!neuronHovering && buttonHovering)
+      return buttonHoverStyles
+    else if (!neuronHovering && !buttonHovering)
       return {'visibility':'hidden'}
+  }
+
+  function handleButtonClick() {
+    props.onButtonClick()
   }
 
   /* RENDER */
   return (
     <div style={containerStyles}>
       <textarea 
-        style={neuronHovering || chooserHovering ? circleHoverStyles : circleStyles} 
+        style={neuronHovering || buttonHovering ? circleHoverStyles : circleStyles} 
         onMouseEnter={() => handleNeuronHover(true)} 
         onMouseOut={() => handleNeuronHover(false)}>
       </textarea>
-      <div 
-        style={getChooserStyles()} 
-        onMouseEnter={() => handleChooserHover(true)} 
-        onMouseOut={() => handleChooserHover(false)}>
-      </div>
+      <button 
+        style={getButtonStyles()} 
+        onMouseEnter={() => handleButtonHover(true)} 
+        onMouseOut={() => handleButtonHover(false)}
+        onClick={handleButtonClick}>
+          Connect
+      </button>
     </div>
   )
 }
