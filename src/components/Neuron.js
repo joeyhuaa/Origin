@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import NeuronChooser from './NeuronChooser'
 
 export default function Neuron(props) {
 
