@@ -37,7 +37,10 @@ export default function Brain(props) {
     console.log(linePositions)
 
     // reset connecting
-    if (connecting.length === 2) setConnecting([])
+    if (connecting.length === 2) {
+      setConnecting([])
+      // setTimeout(() => { setLinePositions([]) }, 1000)
+    }
   })
 
   /* FUNCTIONS */
@@ -74,6 +77,7 @@ export default function Brain(props) {
       // update connecting state
       let newConnecting = connecting; newConnecting.push(startPoint)
       setConnecting(newConnecting)
+
     } else if (connecting.length === 1) {
       alert('connecting second Neuron')
 
@@ -101,17 +105,17 @@ export default function Brain(props) {
     (point, i) => <Neuron pos={point} key={i} onButtonClick={() => handleButtonClick(i)} />
   )}</div>
 
-  let lines = <div>{linePositions.map(
-    (point, i) => <svg width='5000' height='5000'>
-                    <line 
-                      key={i}
-                      x1={point.x1-50} 
-                      y1={point.y1+50} 
-                      x2={point.x2-50}
-                      y2={point.y2+50} 
-                      style={lineStyles} />
-                  </svg>
-  )}</div>
+  let lines = 
+    <svg width='5000' height='5000'>{linePositions.map((pos, i) => 
+      <line 
+        key={i}
+        x1={pos.x1 - 50} 
+        y1={pos.y1 + 50} 
+        x2={pos.x2 - 50}
+        y2={pos.y2 + 50} 
+        style={lineStyles} 
+      />)}
+    </svg>
 
   /* RETURN */
   return (
