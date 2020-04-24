@@ -23,7 +23,6 @@ let lineStyles = {
 
 export default function Brain(props) {
   /* HOOKS */
-  // let [data, setData] = useState([])
   let [neuronPositions, setNeuronPositions] = useState([])
   let [neuronCount, setNeuronCount] = useState(0)
   let [linePositions, setLinePositions] = useState([])
@@ -33,14 +32,16 @@ export default function Brain(props) {
   let [connecting, setConnecting] = useState([]) // will contain 2 Neurons max at any point in time
 
   useEffect(() => {
-    // console.log(neuronPositions)
-    console.log(linePositions)
+    // pass Brain data to App
+    props.getBrainData({
+      neuronPos: neuronPositions, 
+      neuronCt: neuronCount, 
+      linePos: linePositions, 
+      lineCt: lineCount
+    })
 
     // reset connecting
-    if (connecting.length === 2) {
-      setConnecting([])
-      // setTimeout(() => { setLinePositions([]) }, 1000)
-    }
+    if (connecting.length === 2) { setConnecting([]) }
   })
 
   /* FUNCTIONS */
@@ -101,9 +102,10 @@ export default function Brain(props) {
     }
   }
 
-  let neurons = <div>{neuronPositions.map(
-    (point, i) => <Neuron pos={point} key={i} onButtonClick={() => handleButtonClick(i)} />
-  )}</div>
+  let neurons = 
+    <div>{neuronPositions.map((point, i) => 
+      <Neuron pos={point} key={i} onButtonClick={() => handleButtonClick(i)} />)}
+    </div>
 
   let lines = 
     <svg width='5000' height='5000'>{linePositions.map((pos, i) => 

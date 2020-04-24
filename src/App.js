@@ -6,32 +6,35 @@ import Brain from './components/Brain'
 import Menu from './components/Menu'
 
 export default function App() {
-  // initialize allBrainData as an empty array
+  // initialize dataOfBrains as an empty array
   // this will hold data for ALL brains
-  let [data, setData] = useState([])
-
-  // this is the data for the current Brain, is passed as prop to <Brain /> to be rendered
-  let [currBrainData, setCurrBrainData] = useState()
+  let [dataOfBrains, setDataOfBrains] = useState([])
+  let [brainCount, setBrainCount] = useState(0)
 
   useEffect(() => {
   })
 
   function buttonPressed(tabNumber) {
     console.log('The newest Tab is', tabNumber)
-    console.log('data =', data)
-
-    let newData = data; newData[tabNumber] = `${tabNumber}`
-    setData(newData) // create new array for new Tab 
+    
+    // update App state
+    setBrainCount(brainCount + 1)
   }
 
   function tabPressed(tabNumber) {
-    console.log(tabNumber)
-    setCurrBrainData(data[tabNumber]) 
+    console.log('You have selected Tab', tabNumber)
+  }
+
+  function updateBrainData(newBrainData) {
+    // update dataOfBrains continuously (might be cause speed issues??)
+    // let data = dataOfBrains; data[brainCount] = newBrainData 
+    // setDataOfBrains(data)
+    // console.log('dataOfBrains:', dataOfBrains)
   }
 
   return (
     <div id='main-container'>
-      <Brain data={currBrainData} />
+      <Brain data={dataOfBrains[brainCount]} getBrainData={updateBrainData} />
       <Menu onButtonPress={buttonPressed} onTabSelect={tabPressed} />
     </div>
   );
