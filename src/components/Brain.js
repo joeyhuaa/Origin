@@ -21,19 +21,19 @@ let lineStyles = {
   'strokeWidth':'2'
 }
 
-export default function Brain(props) {
+export default function Brain({data, getBrainData}) {
   /* HOOKS */
-  let [neuronPositions, setNeuronPositions] = useState([])
-  let [neuronCount, setNeuronCount] = useState(0)
-  let [linePositions, setLinePositions] = useState([])
-  let [lineCount, setLineCount] = useState(0)
+  let [neuronPositions, setNeuronPositions] = useState(data.neuronPos)
+  let [neuronCount, setNeuronCount] = useState(data.neuronCt)
+  let [linePositions, setLinePositions] = useState(data.linePos)
+  let [lineCount, setLineCount] = useState(data.lineCt)
 
   let [mousePos, setMousePos] = useState({x:0, y:0})
   let [connecting, setConnecting] = useState([]) // will contain 2 Neurons max at any point in time
 
   useEffect(() => {
-    // pass Brain data to App
-    props.getBrainData({
+    // pass updated Brain data to App
+    getBrainData({
       neuronPos: neuronPositions, 
       neuronCt: neuronCount, 
       linePos: linePositions, 
@@ -42,7 +42,7 @@ export default function Brain(props) {
 
     // reset connecting
     if (connecting.length === 2) { setConnecting([]) }
-  })
+  }, [neuronPositions, neuronCount, linePositions, lineCount, connecting.length, getBrainData])
 
   /* FUNCTIONS */
   function between(num, min, max) {
@@ -68,7 +68,7 @@ export default function Brain(props) {
     setMousePos({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY})
   }
 
-  function handleButtonClick(index) {
+  function handleConnect(index) {
     if (connecting.length === 0) {
       alert('connecting first Neuron')
 
@@ -104,7 +104,7 @@ export default function Brain(props) {
 
   let neurons = 
     <div>{neuronPositions.map((point, i) => 
-      <Neuron pos={point} key={i} onButtonClick={() => handleButtonClick(i)} />)}
+      <Neuron pos={point} key={i} onButtonClick={() => handleConnect(i)} />)}
     </div>
 
   let lines = 
@@ -123,17 +123,8 @@ export default function Brain(props) {
   return (
     <div style={containerStyles} onClick={handleClick} onMouseMove={handleMouseMove}>
       <div id='playground' style={brainStyles}>
-        {/* <h3 style={{'margin':'5px'}}>{mousePos.x}, {mousePos.y}</h3> */}
         {neurons} 
         {lines}
-        {/* <svg width='5000' height='5000' border='solid black 2px'>
-          <line 
-            x1={50} 
-            y1={50} 
-            x2={500}
-            y2={500} 
-            style={{'stroke':'rgb(255,0,0)', 'strokeWidth':'2'}} />
-        </svg> */}
       </div>
     </div>
   )
