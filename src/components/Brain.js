@@ -34,7 +34,7 @@ export default function Brain(props) {
 
   useEffect(() => {
     // console.log(neuronPositions)
-    console.log(linePositions)
+    // console.log(linePositions)
 
     // reset connecting
     if (connecting.length === 2) {
