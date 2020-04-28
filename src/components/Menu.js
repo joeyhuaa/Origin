@@ -30,10 +30,8 @@ export default function Menu(props) {
   let [currTab, setCurrTab] = useState(1)
 
   useEffect(() => {
-    if (tabCount !== 1) {
-      props.onButtonPress(tabCount) // callback to Parent
-      props.onTabSelect(currTab) // callback to Parent
-    }
+    props.onButtonPress(tabCount) // callback to Parent
+    props.onTabSelect(currTab) // callback to Parent
   })
 
   /* FUNCTIONS */
