@@ -41,7 +41,7 @@ export default function Neuron(props) {
   let buttonHoverStyles = {...buttonStyles, 'border':'solid black 2px'}
 
   /* HOOKS */
-  let [neuronHovering, setNeuronHovering] = useState(false)
+  let [neuronHovering, setNeuronHovering] = useState(true)
   let [buttonHovering, setButtonHovering] = useState(false)
 
   useEffect(() => {
