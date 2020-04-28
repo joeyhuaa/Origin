@@ -25,15 +25,29 @@ export default function App() {
     lineCt: 0
   } ])
 
+  // other important state hooks
+  let [mousePos, setMousePos] = useState({x:0, y:0})
+  let [connecting, setConnecting] = useState([]) // will contain 2 Neurons max at any point in time
+
   useEffect(() => {
     // console.log('There are', brainKeys.length, 'Brains')
     // console.log('brainKeys', brainKeys)
-    // console.log('dataOfBrains', dataOfBrains)
-    console.log('brainStateZero', brainStateZero)
+    // console.log(`State of Brain ${currBrain}: ${dataOfBrains[currBrain-1].neuronCt}`)
+
+    // reset "connecting" if needed
+    if (connecting.length === 2) setConnecting([])
   })
 
+  function between(num, min, max) {
+    return (num >= min && num <= max)
+  }
+
+  function handleMouseMove(e) {
+    setMousePos({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY}) // change this later to use rectBounds
+  }
+
   function buttonPressed(tabNumber) {
-    // console.log('The newest Tab is', tabNumber)
+    console.log('The newest Tab is', tabNumber)
     
     // update App state
     if (!(tabNumber in brainKeys)) {
@@ -53,19 +67,68 @@ export default function App() {
   }
 
   function tabPressed(tabNumber) {
-    // console.log('You have selected Tab', tabNumber)
+    console.log('You have selected Tab', tabNumber)
     setCurrBrain(tabNumber)
   }
 
-  function updateBrainData(newBrainData) {
-    // update dataOfBrains continuously (might be cause speed issues??)
-    let data = dataOfBrains; data[currBrain-1] = newBrainData 
-    setDataOfBrains(data)
-    console.log(`There are ${dataOfBrains[currBrain-1].neuronCt} Neurons in Brain ${currBrain}`)
+  function updateNeurons() {
+    console.log(dataOfBrains[currBrain-1].neuronPos)
+    let shouldAddNeuron = true
+    for (let p of dataOfBrains[currBrain-1].neuronPos) {
+      if ( between(mousePos.x, p.x-120, p.x+120) && between(mousePos.y, p.y-120, p.y+120) ) {
+        shouldAddNeuron = false
+      }
+    }
+    if (shouldAddNeuron) {
+      let newDataOfBrains = dataOfBrains
+      newDataOfBrains[currBrain-1].neuronPos.push(mousePos) // add position of new Neuron
+      newDataOfBrains[currBrain-1].neuronCt += 1 // increment neuronCt by 1
+      setDataOfBrains(newDataOfBrains) // SETSTATE
+    }
+  }
+
+  function updateLines(index) {
+    if (connecting.length === 0) {
+      alert('connecting first Neuron')
+
+      // add 1st Neuron to connecting, get startPoint for line
+      let startPoint = dataOfBrains[currBrain-1].neuronPos[index]
+
+      // update connecting state
+      let newConnecting = connecting; newConnecting.push(startPoint)
+      setConnecting(newConnecting)
+
+    } else if (connecting.length === 1) {
+      alert('connecting second Neuron')
+
+      // add 2nd Neuron to connecting, get endPoint for line
+      let endPoint = dataOfBrains[currBrain-1].neuronPos[index]
+
+      // update connecting state
+      let newConnecting = connecting; newConnecting.push(endPoint)
+      setConnecting(newConnecting)
+
+      // add the new line
+      let newDataOfBrains = dataOfBrains
+      newDataOfBrains[currBrain-1].linePos.push({ // add the coordinates of the new line
+        x1: connecting[0].x, 
+        y1: connecting[0].y, 
+        x2: connecting[1].x, 
+        y2: connecting[1].y
+      })
+      newDataOfBrains.lineCt += 1 // increment lineCt by 1
+      setDataOfBrains(newDataOfBrains) // SETSTATE
+    }
   }
 
   let brains = brainKeys.map(i => 
-    <Brain key={i} data={dataOfBrains[currBrain-1]} getBrainData={updateBrainData} />
+    <Brain 
+      key={i} 
+      data={dataOfBrains[currBrain-1]} 
+      updateNeurons={updateNeurons} 
+      updateLines={updateLines}
+      onMouseMove={handleMouseMove}
+    />
   )
 
   return (
