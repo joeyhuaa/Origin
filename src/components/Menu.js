@@ -26,11 +26,10 @@ let tabSelectedStyles = {
 
 export default function Menu(props) {
   /* HOOKS */
-  let [tabCount, setTabCount] = useState(1)
-  let [currTab, setCurrTab] = useState(1)
+  let [tabCount, setTabCount] = useState(0)
+  let [currTab, setCurrTab] = useState()
 
   useEffect(() => {
-    console.log('you are on tab', currTab)
     props.onButtonPress(tabCount) // callback to Parent
     props.onTabSelect(currTab) // callback to Parent
   })
@@ -57,9 +56,7 @@ export default function Menu(props) {
   return (
     <div id='menu'>
       <button id='add-tab-button'
-        onClick={() => {
-          handleButtonClick();
-        }}
+        onClick={handleButtonClick}
       >
         +
       </button>
@@ -69,9 +66,7 @@ export default function Menu(props) {
           <Tab 
             tabNumber={x} 
             style={x === currTab ? tabSelectedStyles : tabDefaultStyles}
-            handleClick={() => {
-              handleTabClick(x);
-            }}
+            handleClick={() => {handleTabClick(x)}}
           /> 
         )}
       </div>

@@ -5,34 +5,79 @@ import './App.css';
 import Brain from './components/Brain'
 import Menu from './components/Menu'
 
-export default function App() {
-  // initialize allBrainData as an empty array
-  // this will hold data for ALL brains
-  let [data, setData] = useState([])
-
-  // this is the data for the current Brain, is passed as prop to <Brain /> to be rendered
-  let [currBrainData, setCurrBrainData] = useState()
+export default function App() { 
+  let [brainKeys, setBrainKeys] = useState([]) // start the App with 1 Brain loaded
+  let [currBrain, setCurrBrain] = useState()
+  let [brainStates, setBrainStates] = useState([ {
+    neuronPos: [],
+    neuronCt: 0,
+    linePos: [],
+    lineCt: 0
+  } ])
 
   useEffect(() => {
+    console.log(brainStates[currBrain-1])
   })
 
   function buttonPressed(tabNumber) {
     console.log('The newest Tab is', tabNumber)
-    console.log('data =', data)
+    
+    // update App state 
+    // need conditional because buttonPressed() is continuously being called from Menu's useEffect()
+    if (!(tabNumber in brainKeys)) {
+      let newBrainkeys = brainKeys
+      newBrainkeys.push(tabNumber)
+      setBrainKeys(newBrainkeys) // push new key corresponding to tabNumber
 
-    let newData = data; newData[tabNumber] = `${tabNumber}`
-    setData(newData) // create new array for new Tab 
+      let newBrainStates = brainStates
+      newBrainStates.push({
+        neuronPos: [],
+        neuronCt: 0,
+        linePos: [],
+        lineCt: 0
+      })
+      setBrainStates(newBrainStates) // push new state object to hold state attrs of new Brain
+    }
   }
 
   function tabPressed(tabNumber) {
-    console.log(tabNumber)
-    setCurrBrainData(data[tabNumber]) 
+    console.log('You have selected Tab', tabNumber)
+
+    // update App state
+    setCurrBrain(tabNumber)
   }
 
-  return (
-    <div id='main-container'>
-      <Brain data={currBrainData} />
-      <Menu onButtonPress={buttonPressed} onTabSelect={tabPressed} />
-    </div>
-  );
+  function updateBrainState(newState) {
+    // update brainStates
+    let newBrainStates = brainStates
+    newBrainStates[currBrain-1] = newState
+    setBrainStates(newBrainStates)
+  }
+
+  let brains = brainKeys.map(i => 
+    <Brain 
+      key={i} 
+      state={brainStates[currBrain-1]} 
+      updateBrainState={() => updateBrainState} 
+    />
+  )
+
+  // CONDITIONAL RENDER
+  if (brainKeys.length === 0) {
+    return (
+      <div id='main-container'>
+        <div id='welcome-screen'>
+          <h1>Welcome to Origin!</h1>
+        </div>
+        <Menu onButtonPress={buttonPressed} onTabSelect={tabPressed} />
+      </div>
+    )
+  } else {
+    return (
+      <div id='main-container'>
+        {brains[currBrain-1]}
+        <Menu onButtonPress={buttonPressed} onTabSelect={tabPressed} />
+      </div>
+    )
+  }
 }

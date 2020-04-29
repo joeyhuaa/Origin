@@ -1,8 +1,17 @@
 body {
   margin: 0;
+  /* overflow: hidden; */
+}
+
+#root {
+  margin: 0;
+  padding: 0;
   border: solid salmon .5em;
   font-family: 'Baloo Tammudu 2';
   line-height: 1.5em;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 h1, h2 {
@@ -19,14 +28,27 @@ button:focus {outline: 0;}
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-#test {
-  width: 100px; height: 100px; background-color: tomato;
+#main-container {
+  border: solid goldenrod 3px;
+  padding: 1em;
+  flex-grow: 1;
+  max-height: 100%;
 }
 
-#main-container {
+#welcome-screen {
   border: solid purple 3px;
-  height: 100vh;
+  height: 85%;
   padding: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#brain {
+  border: solid purple 3px;
+  height: 85%;
+  padding: 1em;
+  display: flex;
 }
 
 #notebook, #playground {
