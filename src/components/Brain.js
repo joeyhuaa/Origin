@@ -39,7 +39,10 @@ export default function Brain({state, updateBrainState}) {
   function handleMouseMove(e) {
     let brainDiv = document.getElementById('brain')
     let rect = brainDiv.getBoundingClientRect()
-    setMousePos({x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY}) // change this later to use rectBounds
+    setMousePos({
+      x: e.clientX - rect.x, 
+      y: e.clientY - rect.y
+    }) // change this later to use rectBounds
   }
 
   function handleClick() {
