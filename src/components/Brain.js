@@ -18,6 +18,10 @@ export default function Brain({state, updateBrainState}) {
   let [connecting, setConnecting] = useState([]) // will contain 2 Neurons max at any point in time
 
   useEffect(() => {
+    // console log things
+    console.log(neuronCt)
+    console.log(neuronPos)
+
     // pass Brain state to App
     updateBrainState({
       neuronPos: neuronPos, 
@@ -40,8 +44,8 @@ export default function Brain({state, updateBrainState}) {
     let brainDiv = document.getElementById('brain')
     let rect = brainDiv.getBoundingClientRect()
     setMousePos({
-      x: e.clientX - rect.x, 
-      y: e.clientY - rect.y
+      x: e.clientX - rect.x * 2, 
+      y: e.clientY - rect.y * 2
     }) // change this later to use rectBounds
   }
 
@@ -60,7 +64,7 @@ export default function Brain({state, updateBrainState}) {
     }
   }
 
-  function handleButtonClick(index) {
+  function handleConnect(index) {
     if (connecting.length === 0) {
       alert('connecting first Neuron')
 
@@ -94,9 +98,42 @@ export default function Brain({state, updateBrainState}) {
     }
   }
 
+  function handleDelete(index) {
+    // delete all lines that have an endpoint at neuronPos[index]
+    // let pos = neuronPos[index]
+    // let numDeleted = 0
+    // let newLinePos = linePos
+    // newLinePos.forEach((line, i) => {
+    //   if (line.x1 === pos.x && line.y1 === pos.y) {
+    //     newLinePos.splice(i, 1)
+    //     numDeleted += 1
+    //   }
+    //   else if (line.x1 === pos.x && line.y2 === pos.y) {
+    //     newLinePos.splice(i, 1)
+    //     numDeleted += 1
+    //   }
+    // })
+    // setLinePos(newLinePos)
+    // setLineCt(lineCt - numDeleted)
+
+    // console.log(index)
+    // console.log(neuronPos)
+
+    // delete neuronPos[index]
+    let newNeuronPos = neuronPos
+    newNeuronPos.splice(index, 1)
+    setNeuronPos(newNeuronPos)
+    setNeuronCt(neuronCt - 1)
+  }
+
   let neurons = 
     <div>{neuronPos.map((point, i) => 
-      <Neuron pos={point} key={i} onButtonClick={() => handleButtonClick(i)} />)}
+      <Neuron 
+        pos={point} 
+        key={i} 
+        onConnect={() => handleConnect(i)} 
+        onDelete={() => handleDelete(i)}
+      />)}
     </div>
 
   let lines = 
@@ -125,6 +162,4 @@ export default function Brain({state, updateBrainState}) {
     </div>
   )
 }
-
-// whenever handleClick is called 
 

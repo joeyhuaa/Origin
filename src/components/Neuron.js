@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from 'react'
 
+import Connect from '../img/connect.png'
+import Delete from '../img/x.png'
+
 export default function Neuron(props) {
 
   /* STYLES */
   let containerStyles = {
     'display':'block',
+  }
+
+  let menuStyles = {
+    'display':'flex',
+    'position':'absolute',
+    'left':props.pos.x + 75,
+    'top':props.pos.y,
+    'width':'5%',
+    'height':'5%',
   }
 
   let circleStyles = {
@@ -29,11 +41,7 @@ export default function Neuron(props) {
   let circleHoverStyles = {...circleStyles, 'border':'solid pink 6px'}
 
   let buttonStyles = {
-    'position':'absolute',
-    'left':props.pos.x + 75,
-    'top':props.pos.y,
-    'width':'5%',
-    'height':'5%',
+    'width':'50%',
     'backgroundColor':'whitesmoke',
     'borderRadius':'5%',
   }
@@ -45,7 +53,6 @@ export default function Neuron(props) {
   let [buttonHovering, setButtonHovering] = useState(false)
 
   useEffect(() => {
-
   })
 
   /* FUNCTIONS */
@@ -60,14 +67,10 @@ export default function Neuron(props) {
   function getButtonStyles() {
     if (neuronHovering && !buttonHovering)
       return buttonStyles
-    else if (!neuronHovering && buttonHovering)
+    else if (buttonHovering)
       return buttonHoverStyles
     else if (!neuronHovering && !buttonHovering)
       return {'visibility':'hidden'}
-  }
-
-  function handleButtonClick() {
-    props.onButtonClick()
   }
 
   /* RENDER */
@@ -78,13 +81,25 @@ export default function Neuron(props) {
         onMouseEnter={() => handleNeuronHover(true)} 
         onMouseOut={() => handleNeuronHover(false)}>
       </textarea>
-      <button 
-        style={getButtonStyles()} 
-        onMouseEnter={() => handleButtonHover(true)} 
-        onMouseOut={() => handleButtonHover(false)}
-        onClick={handleButtonClick}>
-          Connect
-      </button>
+
+      <div style={menuStyles}>
+        <button 
+          style={getButtonStyles()} 
+          onMouseEnter={() => handleButtonHover(true)} 
+          onMouseOut={() => handleButtonHover(false)}
+          onClick={props.onConnect}
+        >
+          <img height='10' src={Connect} onMouseEnter={() => handleButtonHover(true)} />
+        </button>
+        <button
+          style={getButtonStyles()}
+          onMouseEnter={() => handleButtonHover(true)} 
+          onMouseOut={() => handleButtonHover(false)}
+          onClick={props.onDelete}
+        >
+          <img height='10' src={Delete} onMouseEnter={() => handleButtonHover(true)} />
+        </button>
+      </div>
     </div>
   )
 }
