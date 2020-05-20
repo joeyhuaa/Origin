@@ -102,21 +102,20 @@ export default function Brain({state, updateBrainState}) {
     let pos = neuronPos[index]
     let numDeleted = 0
     let newLinePos = linePos
-    newLinePos.forEach((line, i) => {
-      if (line.x1 === pos.x && line.y1 === pos.y) {
+    for (let i = 0; i < newLinePos.length; i++) {
+      if (newLinePos[i].x1 === pos.x && newLinePos[i].y1 === pos.y) {
         newLinePos.splice(i, 1)
         numDeleted += 1
+        i--
       }
-      else if (line.x2 === pos.x && line.y2 === pos.y) {
+      else if (newLinePos[i].x2 === pos.x && newLinePos[i].y2 === pos.y) {
         newLinePos.splice(i, 1)
         numDeleted += 1
+        i--
       }
-    })
+    }
     setLinePos(newLinePos)
     setLineCt(lineCt - numDeleted)
-
-    console.log(index)
-    console.log(neuronPos)
 
     // delete neuronPos[index]
     let newNeuronPos = [...neuronPos]
