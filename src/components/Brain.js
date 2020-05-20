@@ -19,7 +19,7 @@ export default function Brain({state, updateBrainState}) {
 
   useEffect(() => {
     // console log things
-
+    console.log(neuronPos.length)
 
     // pass Brain state to App
     updateBrainState({
@@ -57,7 +57,8 @@ export default function Brain({state, updateBrainState}) {
     }
 
     if (shouldAddNeuron) {
-      let newNeuronPos = neuronPos; newNeuronPos.push(mousePos)
+      let newNeuronPos = [...neuronPos] // spread
+      newNeuronPos.push(mousePos)
       setNeuronPos(newNeuronPos)
       setNeuronCt(neuronCt + 1) 
     }
@@ -101,7 +102,7 @@ export default function Brain({state, updateBrainState}) {
     // delete all lines that have an endpoint at neuronPos[index]
     let pos = neuronPos[index]
     let numDeleted = 0
-    let newLinePos = linePos
+    let newLinePos = [...linePos] // spread
     for (let i = 0; i < newLinePos.length; i++) {
       if (newLinePos[i].x1 === pos.x && newLinePos[i].y1 === pos.y) {
         newLinePos.splice(i, 1)
@@ -118,7 +119,7 @@ export default function Brain({state, updateBrainState}) {
     setLineCt(lineCt - numDeleted)
 
     // delete neuronPos[index]
-    let newNeuronPos = [...neuronPos]
+    let newNeuronPos = [...neuronPos] // spread
     newNeuronPos.splice(index, 1)
     setNeuronPos(newNeuronPos)
     setNeuronCt(neuronCt - 1)

@@ -8,40 +8,35 @@ import Menu from './components/Menu'
 export default function App() { 
   let [brainKeys, setBrainKeys] = useState([]) // start the App with 1 Brain loaded
   let [currBrain, setCurrBrain] = useState()
-  let [brainStates, setBrainStates] = useState([ {
-    neuronPos: [],
-    neuronCt: 0,
-    linePos: [],
-    lineCt: 0
-  } ])
+  let [brainStates, setBrainStates] = useState([])
 
   useEffect(() => {
     console.log(brainStates[currBrain-1])
   })
 
   function buttonPressed(tabNumber) {
-    console.log('The newest Tab is', tabNumber)
+    // console.log('The newest Tab is', tabNumber)
     
     // update App state 
     // need conditional because buttonPressed() is continuously being called from Menu's useEffect()
     if (!(tabNumber in brainKeys)) {
-      let newBrainkeys = brainKeys
+      let newBrainkeys = brainKeys // spread
       newBrainkeys.push(tabNumber)
-      setBrainKeys(newBrainkeys) // push new key corresponding to tabNumber
+      setBrainKeys(newBrainkeys) 
 
-      let newBrainStates = brainStates
+      let newBrainStates = brainStates // spread
       newBrainStates.push({
         neuronPos: [],
         neuronCt: 0,
         linePos: [],
         lineCt: 0
       })
-      setBrainStates(newBrainStates) // push new state object to hold state attrs of new Brain
+      setBrainStates(newBrainStates) 
     }
   }
 
   function tabPressed(tabNumber) {
-    console.log('You have selected Tab', tabNumber)
+    // console.log('You have selected Tab', tabNumber)
 
     // update App state
     setCurrBrain(tabNumber)
@@ -49,16 +44,18 @@ export default function App() {
 
   function updateBrainState(newState) {
     // update brainStates
-    let newBrainStates = brainStates
+    let newBrainStates = brainStates // spread
     newBrainStates[currBrain-1] = newState
     setBrainStates(newBrainStates)
+
+    console.log('brain state updated in App.js')
   }
 
   let brains = brainKeys.map(i => 
     <Brain 
       key={i} 
       state={brainStates[currBrain-1]} 
-      updateBrainState={() => updateBrainState} 
+      updateBrainState={updateBrainState} 
     />
   )
 
