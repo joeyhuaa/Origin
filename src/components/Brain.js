@@ -19,8 +19,7 @@ export default function Brain({state, updateBrainState}) {
 
   useEffect(() => {
     // console log things
-    console.log(neuronCt)
-    console.log(neuronPos)
+
 
     // pass Brain state to App
     updateBrainState({
@@ -100,27 +99,27 @@ export default function Brain({state, updateBrainState}) {
 
   function handleDelete(index) {
     // delete all lines that have an endpoint at neuronPos[index]
-    // let pos = neuronPos[index]
-    // let numDeleted = 0
-    // let newLinePos = linePos
-    // newLinePos.forEach((line, i) => {
-    //   if (line.x1 === pos.x && line.y1 === pos.y) {
-    //     newLinePos.splice(i, 1)
-    //     numDeleted += 1
-    //   }
-    //   else if (line.x1 === pos.x && line.y2 === pos.y) {
-    //     newLinePos.splice(i, 1)
-    //     numDeleted += 1
-    //   }
-    // })
-    // setLinePos(newLinePos)
-    // setLineCt(lineCt - numDeleted)
+    let pos = neuronPos[index]
+    let numDeleted = 0
+    let newLinePos = linePos
+    newLinePos.forEach((line, i) => {
+      if (line.x1 === pos.x && line.y1 === pos.y) {
+        newLinePos.splice(i, 1)
+        numDeleted += 1
+      }
+      else if (line.x2 === pos.x && line.y2 === pos.y) {
+        newLinePos.splice(i, 1)
+        numDeleted += 1
+      }
+    })
+    setLinePos(newLinePos)
+    setLineCt(lineCt - numDeleted)
 
-    // console.log(index)
-    // console.log(neuronPos)
+    console.log(index)
+    console.log(neuronPos)
 
     // delete neuronPos[index]
-    let newNeuronPos = neuronPos
+    let newNeuronPos = [...neuronPos]
     newNeuronPos.splice(index, 1)
     setNeuronPos(newNeuronPos)
     setNeuronCt(neuronCt - 1)
