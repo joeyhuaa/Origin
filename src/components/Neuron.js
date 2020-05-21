@@ -4,7 +4,11 @@ import Connect from '../img/connect.png'
 import Delete from '../img/x.png'
 import Button from '../components/Button'
 
-export default function Neuron(props) {
+export default function Neuron({
+  pos,
+  onConnect,
+  onDelete
+}) {
 
   /* STYLES */
   let containerStyles = {
@@ -14,16 +18,16 @@ export default function Neuron(props) {
   let menuStyles = {
     'display':'flex',
     'position':'absolute',
-    'left':props.pos.x + 75,
-    'top':props.pos.y,
+    'left':pos.x + 75,
+    'top':pos.y,
     'width':'5%',
     'height':'5%',
   }
 
   let circleStyles = {
     'position':'absolute',
-    'left':props.pos.x,
-    'top':props.pos.y,
+    'left':pos.x,
+    'top':pos.y,
     'margin':'0',
     'padding':'0',
     'backgroundColor':'#A1D363',
@@ -41,17 +45,8 @@ export default function Neuron(props) {
 
   let circleHoverStyles = {...circleStyles, 'border':'solid pink 6px'}
 
-  let buttonStyles = {
-    'width':'50%',
-    'backgroundColor':'whitesmoke',
-    'borderRadius':'5%',
-  }
-
-  let buttonHoverStyles = {...buttonStyles, 'border':'solid black 2px'}
-
   /* HOOKS */
   let [neuronHovering, setNeuronHovering] = useState(false)
-  let [buttonHovering, setButtonHovering] = useState(false)
 
   useEffect(() => {
     // console.log(neuronHovering)
@@ -62,37 +57,10 @@ export default function Neuron(props) {
     setNeuronHovering(isHovering)
   }
 
-  function handleButtonHover(isHovering) {
-    setButtonHovering(isHovering)
-  }
-
-  function getButtonStyles() {
-    if (neuronHovering && !buttonHovering)
-      return buttonStyles
-    else if (buttonHovering)
-      return buttonHoverStyles
-    else if (!neuronHovering && !buttonHovering)
-      return {'visibility':'hidden'}
-  }
-
   /* RENDER */
-  // return (
-  //   <div 
-  //     style={neuronHovering || buttonHovering ? circleHoverStyles : circleStyles} 
-  //     onMouseEnter={() => handleNeuronHover(true)}
-  //     onMouseLeave={() => handleNeuronHover(false)}
-  //   >
-  //     <Button 
-  //       neuronHovering={neuronHovering}
-  //     />
-  //     <Button 
-  //       neuronHovering={neuronHovering}
-  //     />
-  //   </div>
-  // )
   return (
     <div
-      style={neuronHovering || buttonHovering ? circleHoverStyles : circleStyles} 
+      style={neuronHovering ? circleHoverStyles : circleStyles} 
       onMouseEnter={() => handleNeuronHover(true)} 
       onMouseLeave={() => handleNeuronHover(false)}           
     >
@@ -104,6 +72,7 @@ export default function Neuron(props) {
 
       <Button 
         neuronHovering={neuronHovering}
+        clicked={onConnect}
         img={
           <img 
             height='10' 
@@ -113,6 +82,7 @@ export default function Neuron(props) {
       />
       <Button 
         neuronHovering={neuronHovering}
+        clicked={onDelete}
         img={
           <img 
             height='10' 

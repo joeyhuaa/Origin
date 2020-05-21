@@ -128,8 +128,8 @@ export default function Brain({state, updateBrainState}) {
   let neurons = 
     <div>{neuronPos.map((point, i) => 
       <Neuron 
-        pos={point} 
         key={i} 
+        pos={point} 
         onConnect={() => handleConnect(i)} 
         onDelete={() => handleDelete(i)}
       />)}
