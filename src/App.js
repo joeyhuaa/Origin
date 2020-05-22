@@ -27,6 +27,7 @@ export default function App() {
       let newBrainStates = brainStates // spread
       newBrainStates.push({
         neuronPos: [],
+        neuronTxt: [], // text in neuron lives in App 
         neuronCt: 0,
         linePos: [],
         lineCt: 0
@@ -36,7 +37,7 @@ export default function App() {
   }
 
   function tabPressed(tabNumber) {
-    // console.log('You have selected Tab', tabNumber)
+    console.log('You have selected Tab', tabNumber)
 
     // update App state
     setCurrBrain(tabNumber)
@@ -48,7 +49,7 @@ export default function App() {
     newBrainStates[currBrain-1] = newState
     setBrainStates(newBrainStates)
 
-    console.log('brain state updated in App.js')
+    // console.log('brain state updated in App.js')
   }
 
   let brains = brainKeys.map(i => 

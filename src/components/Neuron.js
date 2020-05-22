@@ -7,23 +7,12 @@ import Button from '../components/Button'
 export default function Neuron({
   pos,
   onConnect,
-  onDelete
+  onDelete,
+  passTxt,
+  liftTxt
 }) {
 
   /* STYLES */
-  let containerStyles = {
-    'display':'block',
-  }
-
-  let menuStyles = {
-    'display':'flex',
-    'position':'absolute',
-    'left':pos.x + 75,
-    'top':pos.y,
-    'width':'5%',
-    'height':'5%',
-  }
-
   let circleStyles = {
     'position':'absolute',
     'left':pos.x,
@@ -45,11 +34,23 @@ export default function Neuron({
 
   let circleHoverStyles = {...circleStyles, 'border':'solid pink 6px'}
 
+  let textAreaStyles = {
+    'fontSize':'15px',
+    'textAlign':'center',
+    'background':'none',
+    'border':'none',
+    'height':'60%',
+    'width':'75%',
+    'overflow':'hidden',
+    'resize':'none',
+  }
+
   /* HOOKS */
   let [neuronHovering, setNeuronHovering] = useState(false)
+  let [content, setContent] = useState(passTxt) 
 
   useEffect(() => {
-    // console.log(neuronHovering)
+    liftTxt(content)
   })
 
   /* FUNCTIONS */
@@ -62,13 +63,7 @@ export default function Neuron({
     <div
       style={neuronHovering ? circleHoverStyles : circleStyles} 
       onMouseEnter={() => handleNeuronHover(true)} 
-      onMouseLeave={() => handleNeuronHover(false)}           
-    >
-      {/* <textarea 
-        style={neuronHovering || buttonHovering ? circleHoverStyles : circleStyles} 
-        onMouseEnter={() => handleNeuronHover(true)} 
-        onMouseOut={() => handleNeuronHover(false)}>
-      </textarea> */}
+      onMouseLeave={() => handleNeuronHover(false)}>           
 
       <Button 
         neuronHovering={neuronHovering}
@@ -80,6 +75,7 @@ export default function Neuron({
           />
         }
       />
+
       <Button 
         neuronHovering={neuronHovering}
         clicked={onDelete}
@@ -90,6 +86,18 @@ export default function Neuron({
           />
         }
       />
+
+      <textarea 
+        placeholder='What are you thinking?' 
+        style={textAreaStyles} 
+        onChange={e => setContent(e.target.value)}>
+          {content}
+      </textarea>
+
+      {/* <input 
+        type='text' 
+        value={content} 
+        onChange={e => setContent(e.target.value)} /> */}
     </div>
   )
 }

@@ -10,6 +10,7 @@ let lineStyles = {
 export default function Brain({state, updateBrainState}) {
   /* HOOKS */
   let [neuronPos, setNeuronPos] = useState(state.neuronPos)
+  let [neuronTxt, setNeuronTxt] = useState(state.neuronTxt) // neuron text lives in Brain too
   let [neuronCt, setNeuronCt] = useState(state.neuronCt)
   let [linePos, setLinePos] = useState(state.linePos)
   let [lineCt, setLineCt] = useState(state.lineCt)
@@ -24,6 +25,7 @@ export default function Brain({state, updateBrainState}) {
     // pass Brain state to App
     updateBrainState({
       neuronPos: neuronPos, 
+      neuronTxt: neuronTxt,
       neuronCt: neuronCt, 
       linePos: linePos, 
       lineCt: lineCt
@@ -45,7 +47,7 @@ export default function Brain({state, updateBrainState}) {
     setMousePos({
       x: e.clientX - rect.x * 2, 
       y: e.clientY - rect.y * 2
-    }) // change this later to use rectBounds
+    }) 
   }
 
   function handleClick() {
@@ -125,6 +127,14 @@ export default function Brain({state, updateBrainState}) {
     setNeuronCt(neuronCt - 1)
   }
 
+  function updateNeuronTxt(newTxt) {
+    let newNeuronTxt = [...neuronTxt]
+    newNeuronTxt.push(newTxt)
+    setNeuronTxt(newNeuronTxt)
+
+    console.log(newTxt)
+  }
+
   let neurons = 
     <div>{neuronPos.map((point, i) => 
       <Neuron 
@@ -132,6 +142,8 @@ export default function Brain({state, updateBrainState}) {
         pos={point} 
         onConnect={() => handleConnect(i)} 
         onDelete={() => handleDelete(i)}
+        passTxt={neuronTxt[i]} // pass neuron text down 
+        liftTxt={() => updateNeuronTxt} // retrieve text from neuron
       />)}
     </div>
 
