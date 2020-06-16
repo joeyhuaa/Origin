@@ -1,6 +1,11 @@
 import React, {useState, useEffect} from 'react'
 
-export default function Button({neuronHovering, clicked, children}) {
+export default function Button({
+  children,
+  neuronHovering, 
+  clicked, 
+  width
+}) {
   let [buttonHovering, setHovering] = useState(false)
 
   useEffect(() => {
@@ -9,7 +14,7 @@ export default function Button({neuronHovering, clicked, children}) {
   })
 
   let buttonStyles = {
-    'width':'50%',
+    'width':width,
     'backgroundColor':'whitesmoke',
     'borderRadius':'5%',
   }

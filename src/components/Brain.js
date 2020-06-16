@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import Neuron from './Neuron'
+import Doc from './Doc'
 
 /* STYLES */
 let lineStyles = {
@@ -9,6 +10,8 @@ let lineStyles = {
 
 export default function Brain({index, state, updateBrainState}) {
   /* HOOKS */
+  let [view, setView] = useState(0)
+
   let [neuronPos, setNeuronPos] = useState(state.neuronPos)
   let [neuronTxt, setNeuronTxt] = useState(state.neuronTxt) // neuron text lives in Brain too
   let [neuronCt, setNeuronCt] = useState(state.neuronCt)
@@ -140,11 +143,16 @@ export default function Brain({index, state, updateBrainState}) {
     console.log(newTxt)
   }
 
+  function handleEdit() {
+    setView(1)
+  }
+
   let neurons = 
     <div>{neuronPos.map((point, i) => 
       <Neuron 
         key={i} 
         pos={point} 
+        onEdit={handleEdit}
         onConnect={() => handleConnect(i)} 
         onDelete={() => handleDelete(i)}
         passTxt={neuronTxt[i]} // pass neuron text down 
@@ -161,21 +169,27 @@ export default function Brain({index, state, updateBrainState}) {
           y1={pos.y1} 
           x2={pos.x2}
           y2={pos.y2} 
-          style={lineStyles} 
-        />
+          style={lineStyles} />
       )}
     </svg>
 
   /* RETURN */
-  return (
-    <div
-      id='brain'
-      onClick={handleClick} 
-      onMouseMove={handleMouseMove}
-    >
-      {neurons} 
-      {lines}
-    </div>
-  )
+  if (view === 0) {
+    return (
+      <div
+        id='brain'
+        onClick={handleClick} 
+        onMouseMove={handleMouseMove}>
+        {neurons} 
+        {lines}
+      </div>
+    )
+  } else if (view === 1) {
+    return (
+      <div id='brain'>
+        <Doc />
+      </div>
+    )
+  }
 }
 

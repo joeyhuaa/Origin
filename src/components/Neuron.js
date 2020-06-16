@@ -7,6 +7,7 @@ import TextArea from '../components/TextArea'
 
 export default function Neuron({
   pos,
+  onEdit,
   onConnect,
   onDelete,
   passTxt,
@@ -64,11 +65,22 @@ export default function Neuron({
     <div
       style={neuronHovering ? circleHoverStyles : circleStyles} 
       onMouseEnter={() => handleNeuronHover(true)} 
-      onMouseLeave={() => handleNeuronHover(false)}>           
+      onMouseLeave={() => handleNeuronHover(false)}> 
 
       <Button 
         neuronHovering={neuronHovering}
-        clicked={onConnect}>
+        clicked={onEdit}
+        width={'33%'}>
+        <img 
+          height='10' 
+          src={Delete} 
+        />
+      </Button>          
+
+      <Button 
+        neuronHovering={neuronHovering}
+        clicked={onConnect}
+        width={'33%'}>
         <img 
           height='10' 
           src={Connect} 
@@ -77,7 +89,8 @@ export default function Neuron({
 
       <Button 
         neuronHovering={neuronHovering}
-        clicked={onDelete}>
+        clicked={onDelete}
+        width={'33%'}>
         <img 
           height='10' 
           src={Delete} 
