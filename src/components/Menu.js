@@ -46,9 +46,9 @@ export default function Menu(props) {
   }
 
   // getTabKeys returns an array that can be MAPPED into Tab components
-  function getTabKeys(numOfTabs) {    
+  function getTabKeys(numOfTabs) {   
     let keys = []
-    for (let i = 1; i < numOfTabs + 1; i++ ) {keys[i] = i }
+    for (let i = 1; i < numOfTabs + 1; i++ ) { keys[i] = i }
     return keys
   }
 
@@ -56,17 +56,17 @@ export default function Menu(props) {
   return (
     <div id='menu'>
       <button id='add-tab-button'
-        onClick={handleButtonClick}
-      >
+        onClick={handleButtonClick}>
         +
       </button>
 
       <div id='tab-group' style={tabGroupStyles}>
-        {getTabKeys(tabCount).map(x => 
+        {getTabKeys(tabCount).map(i => 
           <Tab 
-            tabNumber={x} 
-            style={x === currTab ? tabSelectedStyles : tabDefaultStyles}
-            handleClick={() => {handleTabClick(x)}}
+            key={i}
+            tabNumber={i} 
+            style={i === currTab ? tabSelectedStyles : tabDefaultStyles}
+            handleClick={() => handleTabClick(i)}
           /> 
         )}
       </div>

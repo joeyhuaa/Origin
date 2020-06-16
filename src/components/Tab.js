@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react'
 
-export default function Tab(props) {
+export default function Tab({
+  style,
+  handleClick,
+  tabNumber
+}) {
 
   return (
-    <div style={props.style} onClick={props.handleClick}>{props.tabNumber}</div>
+    <div style={style} onClick={handleClick}>{tabNumber}</div>
   )
 }
 

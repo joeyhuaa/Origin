@@ -11,20 +11,20 @@ export default function App() {
   let [brainStates, setBrainStates] = useState([])
 
   useEffect(() => {
-    console.log(brainStates[currBrain-1])
+    console.log(`Updating App State`)
   })
 
   function buttonPressed(tabNumber) {
     // console.log('The newest Tab is', tabNumber)
     
     // update App state 
-    // need conditional because buttonPressed() is continuously being called from Menu's useEffect()
+    // need conditional because buttonPressed is continuously being called from Menu's useEffect
     if (!(tabNumber in brainKeys)) {
-      let newBrainkeys = brainKeys // spread
+      let newBrainkeys = brainKeys // not spread
       newBrainkeys.push(tabNumber)
       setBrainKeys(newBrainkeys) 
 
-      let newBrainStates = brainStates // spread
+      let newBrainStates = brainStates // not spread
       newBrainStates.push({
         neuronPos: [],
         neuronTxt: [], // text in neuron lives in App 
@@ -37,7 +37,7 @@ export default function App() {
   }
 
   function tabPressed(tabNumber) {
-    console.log('You have selected Tab', tabNumber)
+    // console.log('You have selected Tab', tabNumber)
 
     // update App state
     setCurrBrain(tabNumber)
@@ -45,7 +45,7 @@ export default function App() {
 
   function updateBrainState(newState) {
     // update brainStates
-    let newBrainStates = brainStates // spread
+    let newBrainStates = brainStates // not spread
     newBrainStates[currBrain-1] = newState
     setBrainStates(newBrainStates)
 
@@ -55,6 +55,7 @@ export default function App() {
   let brains = brainKeys.map(i => 
     <Brain 
       key={i} 
+      index={i}
       state={brainStates[currBrain-1]} 
       updateBrainState={updateBrainState} 
     />

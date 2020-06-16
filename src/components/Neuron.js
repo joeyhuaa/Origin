@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Connect from '../img/connect.png'
 import Delete from '../img/x.png'
 import Button from '../components/Button'
+import TextArea from '../components/TextArea'
 
 export default function Neuron({
   pos,
@@ -51,7 +52,7 @@ export default function Neuron({
 
   useEffect(() => {
     liftTxt(content)
-  })
+  }, [content])
 
   /* FUNCTIONS */
   function handleNeuronHover(isHovering) {
@@ -67,32 +68,29 @@ export default function Neuron({
 
       <Button 
         neuronHovering={neuronHovering}
-        clicked={onConnect}
-        img={
-          <img 
-            height='10' 
-            src={Connect} 
-          />
-        }
-      />
+        clicked={onConnect}>
+        <img 
+          height='10' 
+          src={Connect} 
+        />
+      </Button>
 
       <Button 
         neuronHovering={neuronHovering}
-        clicked={onDelete}
-        img={
-          <img 
-            height='10' 
-            src={Delete} 
-          />
-        }
-      />
+        clicked={onDelete}>
+        <img 
+          height='10' 
+          src={Delete} 
+        />
+      </Button>
 
-      <textarea 
+      <TextArea content={content} liftTxt={txt => setContent(txt)} />
+
+      {/* <textarea 
         placeholder='What are you thinking?' 
         style={textAreaStyles} 
-        onChange={e => setContent(e.target.value)}>
-          {content}
-      </textarea>
+        value={content}
+        onChange={e => setContent(e.target.value)} /> */}
 
       {/* <input 
         type='text' 

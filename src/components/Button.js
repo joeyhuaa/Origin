@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
-export default function Button({neuronHovering, clicked, img}) {
+export default function Button({neuronHovering, clicked, children}) {
   let [buttonHovering, setHovering] = useState(false)
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function Button({neuronHovering, clicked, img}) {
       onClick={clicked}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}>
-        {img}
+        {children}
     </button>
   )
 }

@@ -7,7 +7,7 @@ let lineStyles = {
   'strokeWidth':'2'
 }
 
-export default function Brain({state, updateBrainState}) {
+export default function Brain({index, state, updateBrainState}) {
   /* HOOKS */
   let [neuronPos, setNeuronPos] = useState(state.neuronPos)
   let [neuronTxt, setNeuronTxt] = useState(state.neuronTxt) // neuron text lives in Brain too
@@ -20,7 +20,7 @@ export default function Brain({state, updateBrainState}) {
 
   useEffect(() => {
     // console log things
-    console.log(neuronPos.length)
+    console.log(`Updating Brain ${index} State`)
 
     // pass Brain state to App
     updateBrainState({
@@ -29,7 +29,7 @@ export default function Brain({state, updateBrainState}) {
       neuronCt: neuronCt, 
       linePos: linePos, 
       lineCt: lineCt
-    })
+    }, [neuronPos, neuronTxt, neuronCt, linePos, lineCt])
 
     // reset connecting if needed
     if (connecting.length === 2) { setConnecting([]) }
@@ -125,11 +125,16 @@ export default function Brain({state, updateBrainState}) {
     newNeuronPos.splice(index, 1)
     setNeuronPos(newNeuronPos)
     setNeuronCt(neuronCt - 1)
+
+    // delete neuronTxt[index]
+    let newNeuronTxt = [...neuronTxt] // spread
+    newNeuronTxt.splice(index, 1)
+    setNeuronTxt(newNeuronTxt)
   }
 
-  function updateNeuronTxt(newTxt) {
+  function updateNeuronTxt(newTxt='', index) {
     let newNeuronTxt = [...neuronTxt]
-    newNeuronTxt.push(newTxt)
+    newNeuronTxt[index] = newTxt
     setNeuronTxt(newNeuronTxt)
 
     console.log(newTxt)
@@ -143,7 +148,7 @@ export default function Brain({state, updateBrainState}) {
         onConnect={() => handleConnect(i)} 
         onDelete={() => handleDelete(i)}
         passTxt={neuronTxt[i]} // pass neuron text down 
-        liftTxt={() => updateNeuronTxt} // retrieve text from neuron
+        liftTxt={content => updateNeuronTxt(content, i)} // retrieve content from neuron
       />)}
     </div>
 
