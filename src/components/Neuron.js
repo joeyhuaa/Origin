@@ -85,7 +85,9 @@ export default function Neuron({
         maxlength={40} 
         content={content} 
         liftTxt={txt => setContent(txt)} 
-        showScroll={false} />
+        showScroll={false}
+        textAlign={'center'}
+        placeholder={'Name me!'} />
     </div>
   )
 }

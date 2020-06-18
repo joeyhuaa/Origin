@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import Slider from '../src/components/Slider'
 
 // components
 import Brain from './components/Brain'
@@ -66,16 +67,22 @@ export default function App() {
   if (brainKeys.length === 0) {
     return (
       <div id='main-container'>
+        <Slider />
+
         <div id='welcome-screen'>
           <h1>Welcome to Origin!</h1>
         </div>
+
         <Menu onButtonPress={buttonPressed} onTabSelect={tabPressed} />
       </div>
     )
   } else {
     return (
       <div id='main-container'>
+        <Slider />
+
         {brains[currBrain-1]}
+        
         <Menu onButtonPress={buttonPressed} onTabSelect={tabPressed} />
       </div>
     )

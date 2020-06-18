@@ -4,18 +4,20 @@ export default function TextArea({
   content, 
   liftTxt,
   showScroll,
-  maxlength
+  maxlength,
+  textAlign,
+  placeholder
 }) {
   let [txt, setTxt] = useState(content)
 
   let textAreaStyles = {
     'fontSize':'15px',
-    'textAlign':'center',
+    'textAlign':textAlign,
     'background':'none',
     'border':'none',
     'height':'100%',
     'width':'75%',
-    'overflow': showScroll ? 'auto' : 'hidden',
+    'overflow':showScroll ? 'auto' : 'hidden',
     'resize':'none',
     'outline':'none'
   }
@@ -28,7 +30,7 @@ export default function TextArea({
     // <div style={{'height':'100%'}}>
       <textarea 
         maxLength={maxlength}
-        placeholder='What are you thinking?' 
+        placeholder={placeholder} 
         value={txt}
         style={textAreaStyles} 
         onChange={e => setTxt(e.target.value)} />

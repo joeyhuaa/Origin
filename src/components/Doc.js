@@ -32,7 +32,9 @@ export default function Doc({
       <TextArea 
         content={txt}
         liftTxt={txt => setTxt(txt)} 
-        showScroll={true} />
+        showScroll={true}
+        textAlign={'left'}
+        placeholder={'What are you thinking?'} />
     </div>
   )
 }
