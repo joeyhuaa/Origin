@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 
 import Connect from '../img/connect.png'
 import Delete from '../img/x.png'
-import Button from '../components/Button'
-import TextArea from '../components/TextArea'
+import Button from './Button'
+import TextArea from './TextArea'
 
 export default function Neuron({
   pos,
@@ -36,17 +36,6 @@ export default function Neuron({
 
   let circleHoverStyles = {...circleStyles, 'border':'solid pink 6px'}
 
-  let textAreaStyles = {
-    'fontSize':'15px',
-    'textAlign':'center',
-    'background':'none',
-    'border':'none',
-    'height':'60%',
-    'width':'75%',
-    'overflow':'hidden',
-    'resize':'none',
-  }
-
   /* HOOKS */
   let [neuronHovering, setNeuronHovering] = useState(false)
   let [content, setContent] = useState(passTxt) 
@@ -68,47 +57,35 @@ export default function Neuron({
       onMouseLeave={() => handleNeuronHover(false)}> 
 
       <Button 
-        neuronHovering={neuronHovering}
+        hovering={neuronHovering}
         clicked={onEdit}
         width={'33%'}>
-        <img 
-          height='10' 
-          src={Delete} 
-        />
+          Edit
       </Button>          
 
       <Button 
-        neuronHovering={neuronHovering}
+        hovering={neuronHovering}
         clicked={onConnect}
         width={'33%'}>
         <img 
           height='10' 
-          src={Connect} 
-        />
+          src={Connect} />
       </Button>
 
       <Button 
-        neuronHovering={neuronHovering}
+        hovering={neuronHovering}
         clicked={onDelete}
         width={'33%'}>
         <img 
           height='10' 
-          src={Delete} 
-        />
+          src={Delete} />
       </Button>
 
-      <TextArea content={content} liftTxt={txt => setContent(txt)} />
-
-      {/* <textarea 
-        placeholder='What are you thinking?' 
-        style={textAreaStyles} 
-        value={content}
-        onChange={e => setContent(e.target.value)} /> */}
-
-      {/* <input 
-        type='text' 
-        value={content} 
-        onChange={e => setContent(e.target.value)} /> */}
+      <TextArea 
+        maxlength={40} 
+        content={content} 
+        liftTxt={txt => setContent(txt)} 
+        showScroll={false} />
     </div>
   )
 }

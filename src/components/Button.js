@@ -2,9 +2,10 @@ import React, {useState, useEffect} from 'react'
 
 export default function Button({
   children,
-  neuronHovering, 
+  hovering, 
   clicked, 
-  width
+  width,
+  float
 }) {
   let [buttonHovering, setHovering] = useState(false)
 
@@ -17,16 +18,17 @@ export default function Button({
     'width':width,
     'backgroundColor':'whitesmoke',
     'borderRadius':'5%',
+    'float':float
   }
 
   let buttonHoverStyles = {...buttonStyles, 'border':'solid black 2px'}
 
   function getButtonStyles() {
-    if (neuronHovering && !buttonHovering)
+    if (hovering && !buttonHovering)
       return buttonStyles
     else if (buttonHovering)
       return buttonHoverStyles
-    else if (!neuronHovering && !buttonHovering)
+    else if (!hovering && !buttonHovering)
       return {'visibility':'hidden'}
   }
 

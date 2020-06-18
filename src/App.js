@@ -11,7 +11,8 @@ export default function App() {
   let [brainStates, setBrainStates] = useState([])
 
   useEffect(() => {
-    console.log(`Updating App State`)
+    // console.log(`Updating App State`)
+    console.log(brainStates[currBrain-1])
   })
 
   function buttonPressed(tabNumber) {
@@ -30,7 +31,8 @@ export default function App() {
         neuronTxt: [], // text in neuron lives in App 
         neuronCt: 0,
         linePos: [],
-        lineCt: 0
+        lineCt: 0,
+        docData: []
       })
       setBrainStates(newBrainStates) 
     }

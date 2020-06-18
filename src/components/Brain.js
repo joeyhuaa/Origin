@@ -17,6 +17,7 @@ export default function Brain({index, state, updateBrainState}) {
   let [neuronCt, setNeuronCt] = useState(state.neuronCt)
   let [linePos, setLinePos] = useState(state.linePos)
   let [lineCt, setLineCt] = useState(state.lineCt)
+  let [docData, setDocData] = useState(state.docData)
 
   let [mousePos, setMousePos] = useState({x:0, y:0})
   let [connecting, setConnecting] = useState([]) // will contain 2 Neurons max at any point in time
@@ -31,12 +32,13 @@ export default function Brain({index, state, updateBrainState}) {
       neuronTxt: neuronTxt,
       neuronCt: neuronCt, 
       linePos: linePos, 
-      lineCt: lineCt
-    }, [neuronPos, neuronTxt, neuronCt, linePos, lineCt])
+      lineCt: lineCt,
+      docData: docData
+    }, [neuronPos, neuronTxt, neuronCt, linePos, lineCt, docData])
 
     // reset connecting if needed
     if (connecting.length === 2) { setConnecting([]) }
-  }, [neuronPos, neuronCt, linePos, lineCt, updateBrainState] )
+  }, [neuronPos, neuronCt, linePos, lineCt, docData, updateBrainState] )
 
   /* FUNCTIONS */
 
@@ -66,6 +68,14 @@ export default function Brain({index, state, updateBrainState}) {
       newNeuronPos.push(mousePos)
       setNeuronPos(newNeuronPos)
       setNeuronCt(neuronCt + 1) 
+
+      let newNeuronTxt = [...neuronTxt] // spread
+      newNeuronTxt.push('')
+      setNeuronTxt(newNeuronTxt)
+
+      let newDocData = [...docData] // spread
+      newDocData.push('')
+      setDocData(newDocData)
     }
   }
 
@@ -133,6 +143,11 @@ export default function Brain({index, state, updateBrainState}) {
     let newNeuronTxt = [...neuronTxt] // spread
     newNeuronTxt.splice(index, 1)
     setNeuronTxt(newNeuronTxt)
+
+    // delete docData[index]
+    let newDocData = [...docData] // spread
+    newDocData.splice(index, 1)
+    setDocData(newDocData)
   }
 
   function updateNeuronTxt(newTxt='', index) {
@@ -187,7 +202,7 @@ export default function Brain({index, state, updateBrainState}) {
   } else if (view === 1) {
     return (
       <div id='brain'>
-        <Doc />
+        <Doc onExit={() => setView(0)} />
       </div>
     )
   }
