@@ -69,7 +69,7 @@ export default function App() {
       <div id='main-container'>
         <Slider />
 
-        <div id='welcome-screen'>
+        <div id='welcome-screen' className='box'>
           <h1>Welcome to Origin!</h1>
         </div>
 
@@ -82,7 +82,7 @@ export default function App() {
         <Slider />
 
         {brains[currBrain-1]}
-        
+
         <Menu onButtonPress={buttonPressed} onTabSelect={tabPressed} />
       </div>
     )

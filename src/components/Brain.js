@@ -189,6 +189,7 @@ export default function Brain({state, updateBrainState}) {
     return (
       <div
         id='brain'
+        className='box'
         onClick={handleClick} 
         onMouseMove={handleMouseMove}>
         {neurons} 
@@ -197,7 +198,7 @@ export default function Brain({state, updateBrainState}) {
     )
   } else if (view === 1) {
     return (
-      <div id='brain'>
+      <div id='brain' className='box'>
         <Doc 
           content={docData[currNeuron]}
           onExit={txt => {
