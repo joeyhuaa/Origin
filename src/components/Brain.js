@@ -11,6 +11,7 @@ let lineStyles = {
 export default function Brain({index, state, updateBrainState}) {
   /* HOOKS */
   let [view, setView] = useState(0)
+  let [currNeuron, setCurrNeuron] = useState(0)
 
   let [neuronPos, setNeuronPos] = useState(state.neuronPos)
   let [neuronTxt, setNeuronTxt] = useState(state.neuronTxt) // neuron text lives in Brain too
@@ -24,7 +25,7 @@ export default function Brain({index, state, updateBrainState}) {
 
   useEffect(() => {
     // console log things
-    console.log(`Updating Brain ${index} State`)
+    console.log(`Current Neuron is ${currNeuron}`)
 
     // pass Brain state to App
     updateBrainState({
@@ -87,7 +88,8 @@ export default function Brain({index, state, updateBrainState}) {
       let startPoint = neuronPos[index]
 
       // update connecting state
-      let newConnecting = connecting; newConnecting.push(startPoint)
+      let newConnecting = connecting
+      newConnecting.push(startPoint)
       setConnecting(newConnecting)
 
     } else if (connecting.length === 1) {
@@ -97,7 +99,8 @@ export default function Brain({index, state, updateBrainState}) {
       let endPoint = neuronPos[index]
 
       // update connecting state
-      let newConnecting = connecting; newConnecting.push(endPoint)
+      let newConnecting = connecting
+      newConnecting.push(endPoint)
       setConnecting(newConnecting)
 
       // add the new line
@@ -154,12 +157,6 @@ export default function Brain({index, state, updateBrainState}) {
     let newNeuronTxt = [...neuronTxt]
     newNeuronTxt[index] = newTxt
     setNeuronTxt(newNeuronTxt)
-
-    console.log(newTxt)
-  }
-
-  function handleEdit() {
-    setView(1)
   }
 
   let neurons = 
@@ -167,7 +164,7 @@ export default function Brain({index, state, updateBrainState}) {
       <Neuron 
         key={i} 
         pos={point} 
-        onEdit={handleEdit}
+        onEdit={() => {setCurrNeuron(i); setView(1)}}
         onConnect={() => handleConnect(i)} 
         onDelete={() => handleDelete(i)}
         passTxt={neuronTxt[i]} // pass neuron text down 
@@ -202,7 +199,14 @@ export default function Brain({index, state, updateBrainState}) {
   } else if (view === 1) {
     return (
       <div id='brain'>
-        <Doc onExit={() => setView(0)} />
+        <Doc 
+          content={docData[currNeuron]}
+          onExit={txt => {
+            let newDocData = [...docData]
+            newDocData[currNeuron] = txt
+            setDocData(newDocData)
+            setView(0)
+          }} />
       </div>
     )
   }

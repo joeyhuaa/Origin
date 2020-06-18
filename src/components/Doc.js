@@ -11,13 +11,21 @@ let divStyles = {
 }
 
 export default function Doc({
+  content,
   onExit
 }) {
+
+  let [txt, setTxt] = useState(content)
+
+  useEffect(() => {
+    console.log(`Doc contents: ${txt}`)
+  })
+
   return (
     <div style={divStyles}>
       <Button 
         hovering={() => {}}
-        clicked={onExit}
+        clicked={() => onExit(txt)}
         width={'2.5%'}
         float={'right'}>
         <img 
@@ -26,7 +34,8 @@ export default function Doc({
       </Button>
 
       <TextArea 
-        liftTxt={() => {}} 
+        content={txt}
+        liftTxt={txt => setTxt(txt)} 
         showScroll={true} />
     </div>
   )
