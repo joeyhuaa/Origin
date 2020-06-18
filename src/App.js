@@ -57,7 +57,6 @@ export default function App() {
   let brains = brainKeys.map(i => 
     <Brain 
       key={i} 
-      index={i}
       state={brainStates[currBrain-1]} 
       updateBrainState={updateBrainState} 
     />

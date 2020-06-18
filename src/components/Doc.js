@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import TextArea from './TextArea'
 import Button from './Button'
 import Exit from '../img/x.png'
@@ -16,10 +16,6 @@ export default function Doc({
 }) {
 
   let [txt, setTxt] = useState(content)
-
-  useEffect(() => {
-    console.log(`Doc contents: ${txt}`)
-  })
 
   return (
     <div style={divStyles}>

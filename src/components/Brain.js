@@ -8,7 +8,7 @@ let lineStyles = {
   'strokeWidth':'2'
 }
 
-export default function Brain({index, state, updateBrainState}) {
+export default function Brain({state, updateBrainState}) {
   /* HOOKS */
   let [view, setView] = useState(0)
   let [currNeuron, setCurrNeuron] = useState(0)
@@ -25,7 +25,6 @@ export default function Brain({index, state, updateBrainState}) {
 
   useEffect(() => {
     // console log things
-    console.log(`Current Neuron is ${currNeuron}`)
 
     // pass Brain state to App
     updateBrainState({
@@ -39,7 +38,7 @@ export default function Brain({index, state, updateBrainState}) {
 
     // reset connecting if needed
     if (connecting.length === 2) { setConnecting([]) }
-  }, [neuronPos, neuronCt, linePos, lineCt, docData, updateBrainState] )
+  }, [neuronPos, neuronTxt, neuronCt, linePos, lineCt, docData, updateBrainState] )
 
   /* FUNCTIONS */
 
@@ -153,7 +152,7 @@ export default function Brain({index, state, updateBrainState}) {
     setDocData(newDocData)
   }
 
-  function updateNeuronTxt(newTxt='', index) {
+  function updateNeuronTxt(newTxt, index) {
     let newNeuronTxt = [...neuronTxt]
     newNeuronTxt[index] = newTxt
     setNeuronTxt(newNeuronTxt)
