@@ -8,7 +8,21 @@ let lineStyles = {
   'strokeWidth':'2'
 }
 
-export default function Brain({state, updateBrainState}) {
+let lightStyles = {
+  'border':'solid purple 3px',
+  'height':'75%',
+  'padding':'1em',
+  'display':'flex',
+  'justifyContent':'center'
+}
+
+let darkStyles = {...lightStyles, 'backgroundColor':'#47476b'}
+
+export default function Brain({
+  state, 
+  updateBrainState,
+  theme
+}) {
   /* HOOKS */
   let [view, setView] = useState(0)
   let [currNeuron, setCurrNeuron] = useState(0)
@@ -41,7 +55,6 @@ export default function Brain({state, updateBrainState}) {
   }, [neuronPos, neuronTxt, neuronCt, linePos, lineCt, docData, updateBrainState] )
 
   /* FUNCTIONS */
-
   function between(num, min, max) {
     return (num >= min && num <= max)
   }
@@ -51,7 +64,7 @@ export default function Brain({state, updateBrainState}) {
     let rect = brainDiv.getBoundingClientRect()
     setMousePos({
       x: e.clientX - rect.x * 2, 
-      y: e.clientY - rect.y * 2
+      y: e.clientY - rect.y * 2 + 80
     }) 
   }
 
@@ -163,6 +176,7 @@ export default function Brain({state, updateBrainState}) {
       <Neuron 
         key={i} 
         pos={point} 
+        theme={theme}
         onEdit={() => {setCurrNeuron(i); setView(1)}}
         onConnect={() => handleConnect(i)} 
         onDelete={() => handleDelete(i)}
@@ -189,7 +203,7 @@ export default function Brain({state, updateBrainState}) {
     return (
       <div
         id='brain'
-        className='box'
+        style={theme ? darkStyles : lightStyles}
         onClick={handleClick} 
         onMouseMove={handleMouseMove}>
         {neurons} 
@@ -198,9 +212,10 @@ export default function Brain({state, updateBrainState}) {
     )
   } else if (view === 1) {
     return (
-      <div id='brain' className='box'>
+      <div id='brain' style={theme ? darkStyles : lightStyles}>
         <Doc 
           content={docData[currNeuron]}
+          theme={theme}
           onExit={txt => {
             let newDocData = [...docData]
             newDocData[currNeuron] = txt

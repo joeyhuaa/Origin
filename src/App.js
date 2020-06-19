@@ -10,10 +10,10 @@ export default function App() {
   let [brainKeys, setBrainKeys] = useState([]) // start the App with 1 Brain loaded
   let [currBrain, setCurrBrain] = useState()
   let [brainStates, setBrainStates] = useState([])
+  let [theme, setTheme] = useState(0)
 
   useEffect(() => {
-    // console.log(`Updating App State`)
-    console.log(brainStates[currBrain-1])
+    console.log(theme)
   })
 
   function buttonPressed(tabNumber) {
@@ -60,14 +60,15 @@ export default function App() {
       key={i} 
       state={brainStates[currBrain-1]} 
       updateBrainState={updateBrainState} 
+      theme={theme}
     />
   )
 
   // CONDITIONAL RENDER
-  if (brainKeys.length === 0) {
+  if (brainKeys.length <= 1) {
     return (
       <div id='main-container'>
-        <Slider />
+        <Slider onToggle={state => setTheme(state)} />
 
         <div id='welcome-screen' className='box'>
           <h1>Welcome to Origin!</h1>
@@ -79,7 +80,7 @@ export default function App() {
   } else {
     return (
       <div id='main-container'>
-        <Slider />
+        <Slider onToggle={state => setTheme(state)} />
 
         {brains[currBrain-1]}
 

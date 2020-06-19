@@ -11,19 +11,20 @@ export default function Neuron({
   onConnect,
   onDelete,
   passTxt,
-  liftTxt
+  liftTxt,
+  theme
 }) {
 
   /* STYLES */
-  let circleStyles = {
+  let lightStyles = {
     'position':'absolute',
     'left':pos.x,
     'top':pos.y,
     'margin':'0',
     'padding':'0',
-    'backgroundColor':'#A1D363',
-    'height':'130px',
-    'width':'130px',
+    'backgroundColor':'#47476b',
+    'height':'100px',
+    'width':'100px',
     'border':'solid black 2px',
     'borderRadius':'50%',
     'fontSize':'20px',
@@ -31,10 +32,11 @@ export default function Neuron({
     'resize':'none',  
     'textAlign':'center',
     'verticalAlign':'middle',
-    'cursor':'pointer',
+    'cursor':'pointer'
   }
-
-  let circleHoverStyles = {...circleStyles, 'border':'solid pink 6px'}
+  let darkStyles = {...lightStyles, 'backgroundColor':'whitesmoke'}
+  let lightHoverStyles = {...lightStyles, 'border':'solid #bfff80 6px'}
+  let darkHoverStyles = {...darkStyles, 'border':'solid pink 6px'}
 
   /* HOOKS */
   let [neuronHovering, setNeuronHovering] = useState(false)
@@ -52,42 +54,49 @@ export default function Neuron({
   /* RENDER */
   return (
     <div
-      style={neuronHovering ? circleHoverStyles : circleStyles} 
+      style={theme ? 
+        (neuronHovering ? darkHoverStyles : darkStyles) :
+        (neuronHovering ? lightHoverStyles : lightStyles)
+      } 
       onMouseEnter={() => handleNeuronHover(true)} 
       onMouseLeave={() => handleNeuronHover(false)}> 
 
-      <Button 
-        hovering={neuronHovering}
-        clicked={onEdit}
-        width={'33%'}>
-          Edit
-      </Button>          
+      <div style={{'display':'flex'}}>
+        <Button 
+          hovering={neuronHovering}
+          clicked={onEdit}
+          width={'33%'}>
+            Edit
+        </Button>          
 
-      <Button 
-        hovering={neuronHovering}
-        clicked={onConnect}
-        width={'33%'}>
-        <img 
-          height='10' 
-          src={Connect} />
-      </Button>
+        <Button 
+          hovering={neuronHovering}
+          clicked={onConnect}
+          width={'33%'}>
+          <img 
+            height='10' 
+            src={Connect} />
+        </Button>
 
-      <Button 
-        hovering={neuronHovering}
-        clicked={onDelete}
-        width={'33%'}>
-        <img 
-          height='10' 
-          src={Delete} />
-      </Button>
+        <Button 
+          hovering={neuronHovering}
+          clicked={onDelete}
+          width={'33%'}>
+          <img 
+            height='10' 
+            src={Delete} />
+        </Button>
+      </div>
 
       <TextArea 
-        maxlength={40} 
+        maxlength={20} 
         content={content} 
         liftTxt={txt => setContent(txt)} 
         showScroll={false}
         textAlign={'center'}
-        placeholder={'Name me!'} />
+        placeholder={'Name me!'}
+        fontColor={theme ? 'black' : 'whitesmoke'}
+        />
     </div>
   )
 }

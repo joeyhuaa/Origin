@@ -6,7 +6,8 @@ export default function TextArea({
   showScroll,
   maxlength,
   textAlign,
-  placeholder
+  placeholder,
+  fontColor
 }) {
   let [txt, setTxt] = useState(content)
 
@@ -19,7 +20,8 @@ export default function TextArea({
     'width':'75%',
     'overflow':showScroll ? 'auto' : 'hidden',
     'resize':'none',
-    'outline':'none'
+    'outline':'none',
+    'color':fontColor
   }
 
   useEffect(() => {

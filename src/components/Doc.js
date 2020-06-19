@@ -12,7 +12,8 @@ let divStyles = {
 
 export default function Doc({
   content,
-  onExit
+  onExit,
+  theme
 }) {
 
   let [txt, setTxt] = useState(content)
@@ -34,7 +35,8 @@ export default function Doc({
         liftTxt={txt => setTxt(txt)} 
         showScroll={true}
         textAlign={'left'}
-        placeholder={'What are you thinking?'} />
+        placeholder={'What are you thinking?'}
+        fontColor={theme ? 'whitesmoke' : 'black'} />
     </div>
   )
 }

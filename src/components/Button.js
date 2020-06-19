@@ -18,7 +18,11 @@ export default function Button({
     'width':width,
     'backgroundColor':'whitesmoke',
     'borderRadius':'5%',
-    'float':float
+    'float':float,
+    'fontSize':11,
+    'display':'flex',
+    'alignItems':'center',
+    'justifyContent':'center'
   }
 
   let buttonHoverStyles = {...buttonStyles, 'border':'solid black 2px'}
