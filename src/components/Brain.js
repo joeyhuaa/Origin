@@ -16,7 +16,7 @@ let lightStyles = {
   'justifyContent':'center'
 }
 
-let darkStyles = {...lightStyles, 'backgroundColor':'#47476b'}
+let darkStyles = {...lightStyles, 'backgroundColor':'#33334d'}
 
 export default function Brain({
   state, 
