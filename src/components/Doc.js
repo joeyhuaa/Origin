@@ -27,7 +27,8 @@ export default function Doc({
         float={'right'}>
         <img 
           height='10' 
-          src={Exit} />
+          src={Exit}
+          alt='' />
       </Button>
 
       <TextArea 

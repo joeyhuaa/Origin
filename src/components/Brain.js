@@ -52,7 +52,7 @@ export default function Brain({
 
     // reset connecting if needed
     if (connecting.length === 2) { setConnecting([]) }
-  }, [neuronPos, neuronTxt, neuronCt, linePos, lineCt, docData, updateBrainState] )
+  })
 
   /* FUNCTIONS */
   function between(num, min, max) {

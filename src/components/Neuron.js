@@ -44,7 +44,7 @@ export default function Neuron({
 
   useEffect(() => {
     liftTxt(content)
-  }, [content])
+  })
 
   /* FUNCTIONS */
   function handleNeuronHover(isHovering) {
@@ -75,7 +75,8 @@ export default function Neuron({
           width={'33%'}>
           <img 
             height='10' 
-            src={Connect} />
+            src={Connect}
+            alt='' />
         </Button>
 
         <Button 
@@ -84,7 +85,8 @@ export default function Neuron({
           width={'33%'}>
           <img 
             height='10' 
-            src={Delete} />
+            src={Delete}
+            alt='' />
         </Button>
       </div>
 
