@@ -44,7 +44,7 @@ export default function Neuron({
 
   useEffect(() => {
     liftTxt(content)
-  })
+  }, [content])
 
   /* FUNCTIONS */
   function handleNeuronHover(isHovering) {

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
 import Neuron from './Neuron'
 import Doc from './Doc'
 
@@ -52,7 +52,7 @@ export default function Brain({
 
     // reset connecting if needed
     if (connecting.length === 2) { setConnecting([]) }
-  })
+  }, [neuronPos, neuronTxt, neuronCt, linePos, lineCt, docData, updateBrainState, connecting.length])
 
   /* FUNCTIONS */
   function between(num, min, max) {
@@ -165,7 +165,7 @@ export default function Brain({
     setDocData(newDocData)
   }
 
-  function updateNeuronTxt(newTxt, index) {
+  const updateNeuronTxt = (newTxt, index) => {
     let newNeuronTxt = [...neuronTxt]
     newNeuronTxt[index] = newTxt
     setNeuronTxt(newNeuronTxt)
