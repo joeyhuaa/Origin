@@ -5,18 +5,11 @@ import Tab from './Tab';
 let menuStyles = {
   'display':'flex',
   'overflowX':'auto',
-  // 'top':560,
-  // 'width':'100%'
 }
 
 let tabDefaultStyles = {
   'display':'flex',
-  'width':'40em',
   'borderRight':'solid turquoise 1px',
-  'justifyContent':'center',
-  'alignItems':'center',
-  'height':'100%',
-  'zIndex':0
 }
 
 let tabSelectedStyles = {...tabDefaultStyles, 'backgroundColor':'bisque',}
@@ -60,9 +53,10 @@ export default function Menu(props) {
       <div id='tab-group' style={menuStyles}>
         {getTabKeys(tabCount).map(i => 
           <Tab 
-            key={i}
+            key={`tab-${i}`}
             tabNumber={i} 
-            style={i === currTab ? tabSelectedStyles : tabDefaultStyles}
+            selected={i === currTab}
+            styles={i === currTab ? tabSelectedStyles : tabDefaultStyles}
             handleClick={() => handleTabClick(i)}
           /> 
         )}

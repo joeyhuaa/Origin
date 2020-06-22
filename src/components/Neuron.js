@@ -91,13 +91,14 @@ export default function Neuron({
       </div>
 
       <TextArea 
-        maxlength={20} 
+        maxChars={40} 
         content={content} 
         liftTxt={txt => setContent(txt)} 
         showScroll={false}
         textAlign={'center'}
         placeholder={'Name me!'}
         fontColor={theme ? 'black' : 'whitesmoke'}
+        wrap={true}
         />
     </div>
   )

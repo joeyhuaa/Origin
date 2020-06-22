@@ -3,11 +3,12 @@ import React, {useState, useEffect} from 'react'
 export default function TextArea({
   content, 
   liftTxt,
-  showScroll,
-  maxlength,
+  showScroll=true,
+  maxChars,
   textAlign,
   placeholder,
-  fontColor
+  fontColor,
+  wrap
 }) {
   let [txt, setTxt] = useState(content)
 
@@ -21,7 +22,9 @@ export default function TextArea({
     'overflow':showScroll ? 'auto' : 'hidden',
     'resize':'none',
     'outline':'none',
-    'color':fontColor
+    'color':fontColor,
+    'textOverflow':'',
+    'whiteSpace':wrap ? 'normal' : 'nowrap',
   }
 
   useEffect(() => {
@@ -29,13 +32,12 @@ export default function TextArea({
   })
 
   return (
-    // <div style={{'height':'100%'}}>
-      <textarea 
-        maxLength={maxlength}
-        placeholder={placeholder} 
-        value={txt}
-        style={textAreaStyles} 
-        onChange={e => setTxt(e.target.value)} />
-    // </div>
+    <textarea 
+      maxLength={maxChars}
+      placeholder={placeholder} 
+      value={txt}
+      style={textAreaStyles} 
+      onChange={e => setTxt(e.target.value)} 
+    />
   )
 }

@@ -11,7 +11,7 @@ let lineStyles = {
 let lightStyles = {
   'position':'sticky',
   'border':'solid purple 3px',
-  // 'width':'95%',
+  // 'width':'100%',
   'height':'75%',
   'padding':'1em',
   'display':'flex',
@@ -19,7 +19,7 @@ let lightStyles = {
   'whiteSpace':'nowrap',
   'overflowX':'scroll',
   'overflowY':'scroll',
-  'right':10
+  // 'right':10
 }
 
 let darkStyles = {...lightStyles, 'backgroundColor':'#33334d'}
