@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import Slider from '../src/components/Slider'
+import Slider from '../src/components/Slider';
+import TextArea from './components/TextArea';
 
 // components
 import Brain from './components/Brain'
@@ -77,6 +78,18 @@ export default function App() {
         <Menu onButtonPress={buttonPressed} onTabSelect={tabPressed} />
       </div>
     )
+    // return (
+    //   <div style={{
+    //     'border':'solid gray 2px',
+    //     'height':'200px',
+    //     'width':'20%',
+    //     'overflowX':'scroll',
+    //     'overflowY':'hidden',
+    //     'whiteSpace':'nowrap'
+    //   }}>
+    //     <TextArea liftTxt={()=>{}} />
+    //   </div>
+    // )
   } else {
     return (
       <div id='main-container'>

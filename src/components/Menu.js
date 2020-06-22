@@ -1,10 +1,12 @@
-import React, {useState, useEffect} from 'react'
-import Tab from './Tab'
+import React, {useState, useEffect} from 'react';
+import Tab from './Tab';
 
 /* STYLES */
-let tabGroupStyles = {
+let menuStyles = {
   'display':'flex',
   'overflowX':'auto',
+  // 'top':560,
+  // 'width':'100%'
 }
 
 let tabDefaultStyles = {
@@ -13,16 +15,11 @@ let tabDefaultStyles = {
   'borderRight':'solid turquoise 1px',
   'justifyContent':'center',
   'alignItems':'center',
+  'height':'100%',
+  'zIndex':0
 }
 
-let tabSelectedStyles = {
-  'display':'flex',
-  'width':'40em',
-  'borderRight':'solid turquoise 1px',
-  'justifyContent':'center',
-  'alignItems':'center',
-  'backgroundColor':'bisque',
-}
+let tabSelectedStyles = {...tabDefaultStyles, 'backgroundColor':'bisque',}
 
 export default function Menu(props) {
   /* HOOKS */
@@ -54,13 +51,13 @@ export default function Menu(props) {
 
   /* RETURN */
   return (
-    <div id='menu'>
+    <div id='menu' style={menuStyles}>
       <button id='add-tab-button'
         onClick={handleButtonClick}>
         +
       </button>
 
-      <div id='tab-group' style={tabGroupStyles}>
+      <div id='tab-group' style={menuStyles}>
         {getTabKeys(tabCount).map(i => 
           <Tab 
             key={i}

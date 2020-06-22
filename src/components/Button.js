@@ -10,8 +10,6 @@ export default function Button({
   let [buttonHovering, setHovering] = useState(false)
 
   useEffect(() => {
-    // console.log('neuron hovering: ', neuronHovering)
-    // console.log('button hovering: ', buttonHovering)
   })
 
   let buttonStyles = {

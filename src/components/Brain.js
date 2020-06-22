@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react'
+import React, {useState, useEffect} from 'react'
 import Neuron from './Neuron'
 import Doc from './Doc'
 
@@ -9,11 +9,17 @@ let lineStyles = {
 }
 
 let lightStyles = {
+  'position':'sticky',
   'border':'solid purple 3px',
+  // 'width':'95%',
   'height':'75%',
   'padding':'1em',
   'display':'flex',
-  'justifyContent':'center'
+  'justifyContent':'center',
+  'whiteSpace':'nowrap',
+  'overflowX':'scroll',
+  'overflowY':'scroll',
+  'right':10
 }
 
 let darkStyles = {...lightStyles, 'backgroundColor':'#33334d'}
@@ -224,6 +230,6 @@ export default function Brain({
           }} />
       </div>
     )
-  }
+  } else { return null }
 }
 

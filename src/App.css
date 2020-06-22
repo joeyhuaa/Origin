@@ -56,10 +56,14 @@ button:focus {outline: 0;}
   border: solid turquoise 3px;
   height: 5%;
   margin-top: 1em;
+  position: sticky;
 }
 
 #add-tab-button {
+  /* position: absolute; */
   min-width: 3em;
+  z-index: 1;
+  /* height: 4.5%; */
   height: 100%;
 }
 
