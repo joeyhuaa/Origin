@@ -28,7 +28,7 @@ export default function Menu({
     onButtonPress(tabCount) // callback to Parent
     onTabSelect(currTab) // callback to Parent
 
-    console.log(`You are on tab ${currTab}`)
+    // console.log(`You are on tab ${currTab}`)
   })
 
   /* FUNCTIONS */
@@ -39,9 +39,10 @@ export default function Menu({
     setTabCount(tabCount + 1)
   }
 
-  function handleDelete(index) {
+  function handleDelete(i) {
     let newTabs = [...tabs]
-    newTabs.splice(index, 1)
+    newTabs.splice(i, 1)
+    console.log(`Tab ${i} deleted...`)
     setTabs(newTabs)
     setTabCount(tabCount - 1)
     setCurrTab(null) // not working
@@ -63,7 +64,7 @@ export default function Menu({
             selected={i+1 === currTab}
             styles={i+1 === currTab ? tabSelectedStyles : tabDefaultStyles}
             handleClick={() => setCurrTab(i+1)}
-            onDelete={() => handleDelete(i-1)}
+            onDelete={() => handleDelete(i)}
           /> 
         )}
       </div>

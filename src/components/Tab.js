@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import TextArea from './TextArea';
 import Button from './Button';
 import Delete from '../img/x.png';
