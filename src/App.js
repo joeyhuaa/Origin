@@ -14,12 +14,9 @@ export default function App() {
   let [theme, setTheme] = useState(0)
 
   useEffect(() => {
-    console.log(theme)
   })
 
   function buttonPressed(tabNumber) {
-    // console.log('The newest Tab is', tabNumber)
-    
     // update App state 
     // need conditional because buttonPressed is continuously being called from Menu's useEffect
     if (!(tabNumber in brainKeys)) {

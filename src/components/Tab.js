@@ -1,26 +1,31 @@
 import React, {useState, useEffect} from 'react';
 import TextArea from './TextArea';
+import Button from './Button';
+import Delete from '../img/x.png';
 
 export default function Tab({
   styles,
   handleClick,
-  tabNumber,
-  selected
+  selected,
+  onDelete
 }) {
 
   let [label, setLabel] = useState('')
+  let [hovering, setHovering] = useState(false)
 
   return (
     <div 
       className='tab'
       style={styles} 
       onClick={handleClick}
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
     >
       {selected ? 
         <div style={{'minWidth':'50px'}}>
           <TextArea 
             maxChars={20}
-            placeholder={`Tab ${tabNumber}`}
+            placeholder={'Untitled'}
             showScroll={false}
             liftTxt={txt => setLabel(txt)}
             content={label}
@@ -29,7 +34,6 @@ export default function Tab({
         :
         <div 
           style={{
-            ...styles, 
             'textOverflow':'ellipsis',
             'overflow':'hidden',
             'whiteSpace':'nowrap',
@@ -38,9 +42,21 @@ export default function Tab({
             'fontSize':'15px'
           }}
         >
-          {label === '' ? `Tab ${tabNumber}` : label}
+          {label === '' ? 'Brain' : label}
         </div>
       }
+      <div>
+        <Button
+          hovering={hovering}
+          clicked={onDelete}
+          width={'10%'}
+          float={'right'}>
+          <img 
+            height='10' 
+            src={Delete}
+            alt='' />
+        </Button>
+      </div>
     </div>
   )
 }

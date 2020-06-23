@@ -49,6 +49,7 @@ export default function Neuron({
   /* FUNCTIONS */
   function handleNeuronHover(isHovering) {
     setNeuronHovering(isHovering)
+    // maybe call liftTxt from here?? might solve the infinite loop issue
   }
 
   /* RENDER */

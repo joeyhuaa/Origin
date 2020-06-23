@@ -4,7 +4,8 @@ import Tab from './Tab';
 /* STYLES */
 let menuStyles = {
   'display':'flex',
-  'overflowX':'auto',
+  'overflowX':'scroll',
+  'overflowY':'hidden'
 }
 
 let tabDefaultStyles = {
@@ -14,50 +15,55 @@ let tabDefaultStyles = {
 
 let tabSelectedStyles = {...tabDefaultStyles, 'backgroundColor':'bisque',}
 
-export default function Menu(props) {
+export default function Menu({
+  onButtonPress,
+  onTabSelect,
+}) {
   /* HOOKS */
+  let [tabs, setTabs] = useState([])
   let [tabCount, setTabCount] = useState(0)
   let [currTab, setCurrTab] = useState()
 
   useEffect(() => {
-    props.onButtonPress(tabCount) // callback to Parent
-    props.onTabSelect(currTab) // callback to Parent
+    onButtonPress(tabCount) // callback to Parent
+    onTabSelect(currTab) // callback to Parent
+
+    console.log(`You are on tab ${currTab}`)
   })
 
   /* FUNCTIONS */
-
-  // called directly when button is clicked
-  function handleButtonClick() {
+  function handleAdd() {
+    let newTabs = [...tabs]
+    newTabs.push('tab')
+    setTabs(newTabs)
     setTabCount(tabCount + 1)
   }
 
-  function handleTabClick(num) {
-    setCurrTab(num)
-  }
-
-  // getTabKeys returns an array that can be MAPPED into Tab components
-  function getTabKeys(numOfTabs) {   
-    let keys = []
-    for (let i = 1; i < numOfTabs + 1; i++ ) { keys[i] = i }
-    return keys
+  function handleDelete(index) {
+    let newTabs = [...tabs]
+    newTabs.splice(index, 1)
+    setTabs(newTabs)
+    setTabCount(tabCount - 1)
+    setCurrTab(null) // not working
   }
 
   /* RETURN */
   return (
     <div id='menu' style={menuStyles}>
       <button id='add-tab-button'
-        onClick={handleButtonClick}>
+        onClick={handleAdd}
+      >
         +
       </button>
 
       <div id='tab-group' style={menuStyles}>
-        {getTabKeys(tabCount).map(i => 
+        {tabs.map((_, i) => 
           <Tab 
-            key={`tab-${i}`}
-            tabNumber={i} 
-            selected={i === currTab}
-            styles={i === currTab ? tabSelectedStyles : tabDefaultStyles}
-            handleClick={() => handleTabClick(i)}
+            key={`tab-${i+1}`}
+            selected={i+1 === currTab}
+            styles={i+1 === currTab ? tabSelectedStyles : tabDefaultStyles}
+            handleClick={() => setCurrTab(i+1)}
+            onDelete={() => handleDelete(i-1)}
           /> 
         )}
       </div>
