@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 
-import Connect from '../img/connect.png'
-import Delete from '../img/x.png'
-import Button from './Button'
-import TextArea from './TextArea'
+import Connect from '../img/connect.png';
+import Delete from '../img/x.png';
+import Button from './Button';
+import TextArea from './TextArea';
+
 
 export default function Neuron({
   pos,
@@ -42,14 +43,14 @@ export default function Neuron({
   let [neuronHovering, setNeuronHovering] = useState(false)
   let [content, setContent] = useState(passTxt) 
 
-  useEffect(() => {
-    liftTxt(content)
-  }, [content])
+  // useEffect(() => {
+  //   liftTxt(content)
+  // }, [content])
 
   /* FUNCTIONS */
   function handleNeuronHover(isHovering) {
     setNeuronHovering(isHovering)
-    // maybe call liftTxt from here?? might solve the infinite loop issue
+    liftTxt(content) // maybe call liftTxt from here?? might solve the infinite loop issue
   }
 
   /* RENDER */

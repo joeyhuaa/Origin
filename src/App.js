@@ -54,10 +54,10 @@ export default function App() {
   // CONDITIONAL RENDER
   if (typeof currBrain != 'number') {
     return (
-      <div id='main-container'>
+      <div id='main-container' className={theme ? 'main dark-outer' : 'main light-outer'}>
         <Slider onToggle={state => setTheme(state)} />
 
-        <div id='welcome-screen' className='box'>
+        <div id='welcome-screen' className={theme ? 'box dark-inner' : 'box light-inner'}>
           <h1>Welcome to Origin!</h1>
           <h3>[No Brain Selected]</h3>
         </div>
@@ -65,17 +65,22 @@ export default function App() {
         <Menu 
           onButtonPress={buttonPressed} 
           onTabSelect={tabPressed} 
+          theme={theme}
         />
       </div>
     )
   } else {
     return (
-      <div id='main-container'>
+      <div id='main-container' className={theme ? 'main dark-outer' : 'main light-outer'}>
         <Slider onToggle={state => setTheme(state)} />
 
         {brains[currBrain]}
 
-        <Menu onButtonPress={buttonPressed} onTabSelect={tabPressed} />
+        <Menu 
+          onButtonPress={buttonPressed} 
+          onTabSelect={tabPressed} 
+          theme={theme}
+        />
       </div>
     )
   }

@@ -5,12 +5,22 @@ import Tab from './Tab';
 let menuStyles = {
   'display':'flex',
   'overflowX':'scroll',
-  'overflowY':'hidden'
+  'overflowY':'hidden',
+  'position':'sticky',
+  'height':'5%',
+  'marginTop':'1em',
+  // 'backgroundColor':'whitesmoke'
+}
+
+let tabGroupStyles = {
+  'display':'flex',
+  'overflowX':'scroll',
+  'overflowY':'hidden',
 }
 
 let tabDefaultStyles = {
   'display':'flex',
-  'borderRight':'solid turquoise 1px',
+  'borderRight':'solid gray 1px',
 }
 
 let tabSelectedStyles = {...tabDefaultStyles, 'backgroundColor':'bisque',}
@@ -18,6 +28,7 @@ let tabSelectedStyles = {...tabDefaultStyles, 'backgroundColor':'bisque',}
 export default function Menu({
   onButtonPress,
   onTabSelect,
+  theme
 }) {
   /* HOOKS */
   let [tabs, setTabs] = useState([])
@@ -47,14 +58,14 @@ export default function Menu({
 
   /* RETURN */
   return (
-    <div id='menu' style={menuStyles}>
+    <div id='menu' style={menuStyles} className={theme ? 'dark-inner' : 'light-inner'}>
       <button id='add-tab-button'
         onClick={handleAdd}
       >
         +
       </button>
 
-      <div id='tab-group' style={menuStyles}>
+      <div id='tab-group' style={tabGroupStyles}>
         {tabs.map((_, i) => 
           <Tab 
             key={`tab-${i}`}

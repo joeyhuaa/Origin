@@ -6,7 +6,7 @@ body {
 #root {
   margin: 0;
   padding: 0;
-  border: solid salmon .5em;
+  /* border: solid salmon .5em; */
   font-family: 'Baloo Tammudu 2';
   line-height: 1.5em;
   height: 98vh;
@@ -34,16 +34,14 @@ button:focus {outline: 0;}
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-#main-container {
-  border: solid goldenrod 3px;
-  padding: 1em;
+.main {
+  padding: 1em 2em 1em 2em;
   flex-grow: 1;
   max-height: 100%;
   justify-content: space-around;
 }
 
 .box {
-  border: solid purple 3px;
   height: 75%;
   padding: 1em;
   display: flex;
@@ -51,20 +49,31 @@ button:focus {outline: 0;}
   flex-direction: column;
 }
 
+.light-inner {
+  background-color: whitesmoke;
+  box-shadow: 0 0 5px #313335;
+}
+
+.light-outer {
+  background-color: #e5e6e6;
+}
+
+.dark-inner {
+  color: whitesmoke;
+  background-color: #33334d;
+  box-shadow: 0 0 4px whitesmoke;
+}
+
+.dark-outer {
+  color: whitesmoke;
+  background-color: #313335;
+}
+
 #welcome-screen {
   align-items: center;
 }
 
 #brain {
-}
-
-
-#menu {
-  display: flex;
-  border: solid turquoise 3px;
-  height: 5%;
-  margin-top: 1em;
-  position: sticky;
 }
 
 #add-tab-button {
@@ -117,17 +126,18 @@ button:focus {outline: 0;}
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: whitesmoke;
   -webkit-transition: .4s;
   transition: .4s;
 }
 
 input:checked + .slider {
   background-color: #33334d;
+  /* border: solid whitesmoke 2px; */
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #33334d;
+input:checked + .slider {
+  box-shadow: 0 0 2px whitesmoke;
 }
 
 input:checked + .slider:before {
