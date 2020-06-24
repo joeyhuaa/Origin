@@ -22,13 +22,13 @@ export default function Menu({
   /* HOOKS */
   let [tabs, setTabs] = useState([])
   let [tabCount, setTabCount] = useState(0)
-  let [currTab, setCurrTab] = useState()
+  let [currTab, setCurrTab] = useState(null)
 
   useEffect(() => {
     onButtonPress(tabCount) // callback to Parent
     onTabSelect(currTab) // callback to Parent
 
-    // console.log(`You are on tab ${currTab}`)
+    console.log(`You are on tab ${currTab}`)
   })
 
   /* FUNCTIONS */
@@ -42,7 +42,6 @@ export default function Menu({
   function handleDelete(i) {
     let newTabs = [...tabs]
     newTabs.splice(i, 1)
-    console.log(`Tab ${i} deleted...`)
     setTabs(newTabs)
     setTabCount(tabCount - 1)
     setCurrTab(null) // not working
@@ -60,11 +59,11 @@ export default function Menu({
       <div id='tab-group' style={menuStyles}>
         {tabs.map((_, i) => 
           <Tab 
-            key={`tab-${i+1}`}
-            selected={i+1 === currTab}
-            styles={i+1 === currTab ? tabSelectedStyles : tabDefaultStyles}
-            handleClick={() => setCurrTab(i+1)}
-            onDelete={() => handleDelete(i)}
+            key={`tab-${i}`}
+            selected={i === currTab}
+            styles={i === currTab ? tabSelectedStyles : tabDefaultStyles}
+            handleClick={() => setCurrTab(i)}
+            onDelete={e => {e.stopPropagation(); handleDelete(i)}}
           /> 
         )}
       </div>

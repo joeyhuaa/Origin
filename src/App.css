@@ -48,6 +48,7 @@ button:focus {outline: 0;}
   padding: 1em;
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 
 #welcome-screen {
