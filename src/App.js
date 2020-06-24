@@ -13,27 +13,23 @@ export default function App() {
   let [theme, setTheme] = useState(0)
 
   useEffect(() => {
-    console.log(currBrain)
   })
 
   function buttonPressed(tabNumber) {
-    // need conditional because buttonPressed is continuously being called from Menu's useEffect
-    if (!(tabNumber in brainKeys)) {
-      let newBrainkeys = brainKeys // not spread
-      newBrainkeys.push(tabNumber)
-      setBrainKeys(newBrainkeys) 
+    let newBrainkeys = brainKeys // not spread
+    newBrainkeys.push(tabNumber)
+    setBrainKeys(newBrainkeys) 
 
-      let newBrainStates = brainStates // not spread
-      newBrainStates.push({
-        neuronPos: [],
-        neuronTxt: [], // text in neuron lives in App 
-        neuronCt: 0,
-        linePos: [],
-        lineCt: 0,
-        docData: []
-      })
-      setBrainStates(newBrainStates) 
-    }
+    let newBrainStates = brainStates // not spread
+    newBrainStates.push({
+      neuronPos: [],
+      neuronTxt: [], // text in neuron lives in App 
+      neuronCt: 0,
+      linePos: [],
+      lineCt: 0,
+      docData: []
+    })
+    setBrainStates(newBrainStates) 
   }
 
   function tabPressed(tabNumber) {
@@ -42,14 +38,14 @@ export default function App() {
 
   function updateBrainState(newState) {
     let newBrainStates = brainStates // not spread
-    newBrainStates[currBrain-1] = newState
+    newBrainStates[currBrain] = newState
     setBrainStates(newBrainStates)
   }
 
   let brains = brainKeys.map(i => 
     <Brain 
       key={i} 
-      state={brainStates[currBrain-1]} 
+      state={brainStates[currBrain]} 
       updateBrainState={updateBrainState} 
       theme={theme}
     />
@@ -77,7 +73,7 @@ export default function App() {
       <div id='main-container'>
         <Slider onToggle={state => setTheme(state)} />
 
-        {brains[currBrain-1]}
+        {brains[currBrain]}
 
         <Menu onButtonPress={buttonPressed} onTabSelect={tabPressed} />
       </div>

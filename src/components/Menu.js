@@ -25,10 +25,7 @@ export default function Menu({
   let [currTab, setCurrTab] = useState(null)
 
   useEffect(() => {
-    onButtonPress(tabCount) // callback to Parent
-    onTabSelect(currTab) // callback to Parent
-
-    console.log(`You are on tab ${currTab}`)
+    onTabSelect(currTab)
   })
 
   /* FUNCTIONS */
@@ -37,6 +34,7 @@ export default function Menu({
     newTabs.push('tab')
     setTabs(newTabs)
     setTabCount(tabCount + 1)
+    onButtonPress(tabCount) // callback to Parent
   }
 
   function handleDelete(i) {
